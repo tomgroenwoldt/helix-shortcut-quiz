@@ -1,14 +1,19 @@
 [package]
-name = "trunk-template"
+name = "helix-shortcut-quiz"
+authors = ["Tom Groenwoldt <tom.groenwoldt@gmail.com>"]
 version = "0.1.0"
 edition = "2021"
-description = "Template for starting a Yew project using Trunk"
+description = "A quiz web application for learning the helix editor shortcuts."
 readme = "README.md"
-repository = "https://github.com/yewstack/yew-trunk-minimal-template"
-license = "MIT OR Apache-2.0"
-keywords = ["yew", "trunk"]
-categories = ["gui", "wasm", "web-programming"]
+repository = "https://github.com/tomgroenwoldt/shortcut-quiz"
+keywords = ["helix", "editor", "quiz", "game"]
+categories = ["game", "wasm", "web-programming", "editor"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
+getrandom = { version = "0.2.8", features = ["js"] }
+gloo-console = "0.2.3"
+gloo-events = "0.1.2"
+rand = "0.8.5"
+wasm-bindgen = "0.2.84"
+web-sys = "0.3.61"
 yew = { version="0.20", features=["csr"] }
