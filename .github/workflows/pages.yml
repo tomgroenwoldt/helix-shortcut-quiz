@@ -1,0 +1,35 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - master
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+            toolchain: stable
+            target: wasm32-unknown-unknown
+            override: true
+
+      - name: Install trunk
+        uses: jetli/trunk-action@v0.4.0
+
+      - name: Build release
+        run: |
+          trunk build --release --public-url helix-shortcut-quiz
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
+

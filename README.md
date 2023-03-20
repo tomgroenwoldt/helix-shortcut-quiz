@@ -1,3 +1,4 @@
+[![pages-build-deployment](https://github.com/tomgroenwoldt/helix-shortcut-quiz/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/tomgroenwoldt/helix-shortcut-quiz/actions/workflows/pages/pages-build-deployment)
 # Helix Shortcut Quiz
 
 A web quiz built with [yew](https://yew.rs/) for learning [helix editor](https://helix-editor.com/) shortcuts.
