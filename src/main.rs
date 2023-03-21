@@ -1,4 +1,5 @@
 mod app;
+mod categories;
 mod constants;
 mod description;
 mod gif;

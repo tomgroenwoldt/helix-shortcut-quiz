@@ -14,6 +14,8 @@ getrandom = { version = "0.2.8", features = ["js"] }
 gloo-console = "0.2.3"
 gloo-events = "0.1.2"
 rand = "0.8.5"
+strum = { version = "0.24.1", features = ["derive"] }
+strum_macros = "0.24.3"
 wasm-bindgen = "0.2.84"
 web-sys = "0.3.61"
 yew = { version="0.20", features=["csr"] }

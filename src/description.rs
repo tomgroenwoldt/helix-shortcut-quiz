@@ -1,5 +1,6 @@
 use yew::{html, Component};
 
+/// Component which displays the description of a GIF.
 pub struct Description;
 
 #[derive(yew::Properties, Clone, PartialEq)]
@@ -19,7 +20,7 @@ impl Component for Description {
 
     fn view(&self, ctx: &yew::Context<Self>) -> yew::Html {
         html! {
-            <div class="sidebox">
+            <div class="main-top-box">
                 <div class="description">{&ctx.props().text}</div>
             </div>
         }
