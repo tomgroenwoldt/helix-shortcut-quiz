@@ -2,6 +2,8 @@ use yew::{classes, html, Component, Properties};
 
 use crate::constants::COMMANDS;
 
+/// Component which displays all possible user commands defined
+/// in `src/constants.rs`.
 pub struct Help {
     commands: Vec<(String, String)>,
 }
@@ -9,6 +11,7 @@ pub struct Help {
 #[derive(Properties, Clone, PartialEq)]
 pub struct HelpProperties {
     #[prop_or(false)]
+    /// If set, hides commands which are useless after the game.
     pub end: bool,
 }
 
@@ -32,10 +35,12 @@ impl Component for Help {
         } else {
             ("", "")
         };
+        // Handle the last command separately.
         if let Some(reload_command) = commands.iter().last() {
             html! {
                 <div class="sidebox">
                     <dl class="help">
+                        // Handle the rest of the commands.
                         {for commands.iter().take(commands.len() - 1).map(|(key, description)|
 
                             html! {

@@ -6,9 +6,8 @@ pub struct Gif;
 
 #[derive(Properties, Clone, PartialEq)]
 pub struct GifProps {
+    /// Path to location of GIF.
     pub path: String,
-    #[prop_or(false)]
-    pub web: bool,
 }
 
 impl Component for Gif {
@@ -22,21 +21,10 @@ impl Component for Gif {
 
     fn view(&self, ctx: &yew::Context<Self>) -> yew::Html {
         let path = ctx.props().path.clone();
-        match ctx.props().web {
-            true => {
-                html! {
-                    <div class="gif">
-                        <img src={path} />
-                    </div>
-                }
-            }
-            false => {
-                html! {
-                    <div class="gif">
-                        <img src={String::from("gifs/") + path.as_str()} />
-                    </div>
-                }
-            }
+        html! {
+            <div class="gif">
+                <img src={String::from("gifs/") + path.as_str()} />
+            </div>
         }
     }
 }
