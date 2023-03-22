@@ -157,6 +157,7 @@ impl Component for App {
             <div class="layout">
                 <Categories categories={self.categories.clone()} callback={on_click}/>
                 <div class="main">
+                    <div class="title">{"Helix Shortcut Quiz"}</div>
                     <Description text={description.clone()} />
                     <Gif path={path.clone()} />
                     <Shortcut
