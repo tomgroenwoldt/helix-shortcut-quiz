@@ -1,4 +1,4 @@
-Output "gifs/normal-mode/movement/ctrl-s.gif"
+Output "gifs/normal-mode/changes/o.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20
@@ -11,6 +11,8 @@ Enter
 Type "gg"
 Sleep 100ms
 Show
-Sleep 500ms
-Ctrl+S
 Sleep 2000ms
+Type "o"
+Sleep 2000ms
+Type "use std::fs;"
+Sleep 1000ms

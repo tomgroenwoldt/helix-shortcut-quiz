@@ -1,4 +1,4 @@
-Output "gifs/normal-mode/movement/ctrl-s.gif"
+Output "gifs/normal-mode/changes/c.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20
@@ -8,9 +8,11 @@ Set Height 600
 Hide
 Type "helix demo.rs"
 Enter
-Type "gg"
+Type "10Gxxx"
 Sleep 100ms
 Show
-Sleep 500ms
-Ctrl+S
 Sleep 2000ms
+Type "c"
+Sleep 2000ms
+Type "// I'm in insert mode!"
+Sleep 1000ms

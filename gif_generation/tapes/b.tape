@@ -9,6 +9,7 @@ Hide
 Type "helix demo.rs"
 Enter
 Type "6ggglbb"
+Sleep 100ms
 Show
 Sleep 1000ms
 Type "b"

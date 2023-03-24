@@ -10,6 +10,7 @@ Type "helix demo.rs"
 Enter
 Type "8ggI"
 Escape
+Sleep 100ms
 Show
 Sleep 1000ms
 Type "w"

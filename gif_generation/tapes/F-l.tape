@@ -9,6 +9,7 @@ Hide
 Type "helix demo.rs"
 Enter
 Type "ge"
+Sleep 100ms
 Show
 Sleep 2000ms
 Hide

@@ -1,4 +1,4 @@
-Output "gifs/normal-mode/movement/alt-dot.gif"
+Output "gifs/normal-mode/changes/R.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20
@@ -8,19 +8,16 @@ Set Height 600
 Hide
 Type "helix demo.rs"
 Enter
-Type "fl"
+Sleep 2s
+Type "jjj"
+Sleep 500ms
+Type "wwwwww"
 Sleep 100ms
 Show
 Sleep 2000ms
-Alt+.
+Type "y"
 Sleep 2000ms
-Alt+.
+Type "jjww"
 Sleep 2000ms
-Alt+.
-Sleep 2000ms
-Alt+.
-Sleep 2000ms
-Alt+.
-Sleep 2000ms
-Alt+.
+Type "R"
 Sleep 2000ms

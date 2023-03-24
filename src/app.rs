@@ -5,7 +5,7 @@ use yew::prelude::*;
 
 use crate::{
     categories::{Categories, Category},
-    constants::{EMPTY_PLACEHOLDER, END_PLACEHOLDER, NORMAL_MODE_MOVEMENT},
+    constants::{EMPTY_PLACEHOLDER, END_PLACEHOLDER, NORMAL_MODE_CHANGES, NORMAL_MODE_MOVEMENT},
     description::Description,
     gif::Gif,
     help::Help,
@@ -191,7 +191,7 @@ impl App {
         let mut gifs = vec![];
         categories.iter().for_each(|category| match category {
             Category::NormalModeMovement => gifs.append(&mut App::get_gifs(NORMAL_MODE_MOVEMENT)),
-            Category::NormalModeChanges => {}
+            Category::NormalModeChanges => gifs.append(&mut App::get_gifs(NORMAL_MODE_CHANGES)),
             Category::NormalModeSelect => {}
             Category::NormalModeSearch => {}
             Category::ViewMode => {}

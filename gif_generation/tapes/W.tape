@@ -9,6 +9,7 @@ Hide
 Type "helix demo.rs"
 Enter
 Type "14Gw"
+Sleep 100ms
 Show
 Sleep 1000ms
 Type "W"

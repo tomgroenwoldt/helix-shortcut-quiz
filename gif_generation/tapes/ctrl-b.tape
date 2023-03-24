@@ -9,6 +9,7 @@ Hide
 Type "helix long_demo.rs"
 Enter
 Type "ge"
+Sleep 100ms
 Show
 Sleep 2000ms
 Ctrl+B

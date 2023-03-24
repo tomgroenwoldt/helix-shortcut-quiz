@@ -1,4 +1,4 @@
-Output "gifs/normal-mode/movement/13-G.gif"
+Output "gifs/normal-mode/changes/alt-c.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20
@@ -8,11 +8,11 @@ Set Height 600
 Hide
 Type "helix demo.rs"
 Enter
-Type "gg"
+Type "10Gxxx"
 Sleep 100ms
 Show
 Sleep 2000ms
-Hide
-Type "13G"
-Show
+Alt+c
 Sleep 2000ms
+Type "// I'm in insert mode (without yanking the deletion)!"
+Sleep 1000ms

@@ -1,4 +1,4 @@
-Output "gifs/normal-mode/movement/ctrl-f.gif"
+Output "gifs/normal-mode/changes/>.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20
@@ -8,19 +8,13 @@ Set Height 600
 Hide
 Type "helix long_demo.rs"
 Enter
-Type "gg"
+Type "22Gxxxxxxx<<<"
 Sleep 100ms
 Show
 Sleep 2000ms
-Ctrl+F
+Type ">"
 Sleep 2000ms
-Ctrl+F
+Type ">"
 Sleep 2000ms
-Ctrl+F
-Sleep 2000ms
-Ctrl+F
-Sleep 2000ms
-Ctrl+F
-Sleep 2000ms
-Ctrl+F
+Type ">"
 Sleep 2000ms

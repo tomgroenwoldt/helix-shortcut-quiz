@@ -92,7 +92,7 @@ impl Category {
     pub fn is_disabled(&self) -> bool {
         match self {
             Category::NormalModeMovement => false,
-            Category::NormalModeChanges => true,
+            Category::NormalModeChanges => false,
             Category::NormalModeSelect => true,
             Category::NormalModeSearch => true,
             Category::ViewMode => true,

@@ -80,6 +80,97 @@ pub const NORMAL_MODE_MOVEMENT: &[(&str, &[&str], &str)] = &[
     ),
 ];
 
+pub const NORMAL_MODE_CHANGES: &[(&str, &[&str], &str)] = &[
+    (
+        "normal-mode/changes/r.gif",
+        &["r", "k"],
+        "Replace with character 'k'",
+    ),
+    (
+        "normal-mode/changes/R.gif",
+        &["R"],
+        "Replace with yanked text",
+    ),
+    (
+        "normal-mode/changes/swung-dash.gif",
+        &["~"],
+        "Switch case of the selected text",
+    ),
+    (
+        "normal-mode/changes/`.gif",
+        &["`"],
+        "Set the selected text to lower case",
+    ),
+    (
+        "normal-mode/changes/alt-`.gif",
+        &["Alt", "`"],
+        "Set the selected text to upper case",
+    ),
+    (
+        "normal-mode/changes/i.gif",
+        &["i"],
+        "Insert before selection",
+    ),
+    (
+        "normal-mode/changes/a.gif",
+        &["a"],
+        "Insert after selection",
+    ),
+    (
+        "normal-mode/changes/I.gif",
+        &["I"],
+        "Insert at the start of the line",
+    ),
+    (
+        "normal-mode/changes/A.gif",
+        &["A"],
+        "Insert at the end of the line",
+    ),
+    (
+        "normal-mode/changes/o.gif",
+        &["o"],
+        "Open new line below selection",
+    ),
+    (
+        "normal-mode/changes/O.gif",
+        &["O"],
+        "Open new line above selection",
+    ),
+    ("normal-mode/changes/dot.gif", &["."], "Repeat last insert"),
+    ("normal-mode/changes/u.gif", &["u"], "Undo change"),
+    ("normal-mode/changes/U.gif", &["U"], "Redo change"),
+    ("normal-mode/changes/y.gif", &["y"], "Yank selection"),
+    ("normal-mode/changes/p.gif", &["p"], "Paste after selection"),
+    (
+        "normal-mode/changes/P.gif",
+        &["P"],
+        "Paste before selection",
+    ),
+    ("normal-mode/changes/>.gif", &[">"], "Indent selection"),
+    ("normal-mode/changes/<.gif", &["<"], "Unindent selection"),
+    ("normal-mode/changes/d.gif", &["d"], "Delete selection"),
+    (
+        "normal-mode/changes/c.gif",
+        &["c"],
+        "Change selection (delete and enter insert mode)",
+    ),
+    (
+        "normal-mode/changes/alt-c.gif",
+        &["Alt", "c"],
+        "Change selection (delete and enter insert mode, without yanking)",
+    ),
+    (
+        "normal-mode/changes/ctrl-a.gif",
+        &["Control", "a"],
+        "Increment object (number) under cursor",
+    ),
+    (
+        "normal-mode/changes/ctrl-x.gif",
+        &["Control", "x"],
+        "Decrement object (number) under cursor",
+    ),
+];
+
 pub const COMMANDS: &[(&str, &str)] = &[
     ("Esc", "Clear your current input"),
     ("Backspace", "Pop your current input"),

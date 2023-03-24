@@ -9,7 +9,7 @@ Hide
 Type "helix demo.rs"
 Enter
 Type "gl"
-Sleep 1000ms
+Sleep 100ms
 Show
 Sleep 500ms
 Type "h"
