@@ -19,7 +19,7 @@ pub struct App {
     /// The input of user.
     current_guess: Vec<String>,
     state: AppState,
-    categories: Vec<Category>,
+    active_category: Option<Category>,
 }
 
 #[derive(PartialEq)]
@@ -55,19 +55,16 @@ impl Component for App {
     type Properties = ();
 
     fn create(_ctx: &Context<Self>) -> Self {
-        let mut gifs = vec![];
-
-        // Normal mode movement GIFs are set by default.
-        gifs.append(&mut App::get_gifs(NORMAL_MODE_MOVEMENT));
-
-        let current_gif = gifs.pop().expect("No GIFs found.");
+        let gifs = vec![];
+        let (path, description) = EMPTY_PLACEHOLDER;
+        let current_gif = (path.to_owned(), vec![], description.to_owned());
 
         Self {
             gifs,
             current_gif,
             current_guess: vec![],
             state: AppState::InProgress,
-            categories: vec![Category::NormalModeMovement],
+            active_category: None,
         }
     }
 
@@ -128,9 +125,14 @@ impl Component for App {
                 true
             }
             Msg::ToggleCategory(category) => {
-                let categories = category.toggle_category(&self.categories);
-                self.set_gifs(&categories);
-                self.categories = categories;
+                if category.is_disabled() {
+                    return false;
+                }
+                self.active_category = match &self.active_category {
+                    Some(active_category) if active_category.eq(&category) => None,
+                    _ => Some(category),
+                };
+                self.set_gifs(self.active_category.clone());
                 if let Some(gif) = self.gifs.pop() {
                     // Display the first GIF found in the newly set GIFs.
                     self.current_gif = gif;
@@ -155,7 +157,7 @@ impl Component for App {
         let end = self.state.eq(&AppState::End);
         html! {
             <div class="layout">
-                <Categories categories={self.categories.clone()} callback={on_click}/>
+                <Categories active_category={self.active_category.clone()} callback={on_click}/>
                 <div class="main">
                     <Description text={description.clone()} />
                     <Gif path={path.clone()} />
@@ -187,23 +189,26 @@ impl Component for App {
 
 impl App {
     /// Set GIFs with respect to passed in categories.
-    fn set_gifs(&mut self, categories: &[Category]) {
+    fn set_gifs(&mut self, category: Option<Category>) {
         let mut gifs = vec![];
-        categories.iter().for_each(|category| match category {
-            Category::NormalModeMovement => gifs.append(&mut App::get_gifs(NORMAL_MODE_MOVEMENT)),
-            Category::NormalModeChanges => gifs.append(&mut App::get_gifs(NORMAL_MODE_CHANGES)),
-            Category::NormalModeSelect => {}
-            Category::NormalModeSearch => {}
-            Category::ViewMode => {}
-            Category::GotoMode => {}
-            Category::MatchMode => {}
-            Category::WindowMode => {}
-            Category::SpaceMode => {}
-            Category::InsertMode => {}
-            Category::SelectMode => {}
-            Category::Picker => {}
-            Category::Prompt => {}
-        });
+        if let Some(category) = category {
+            let gif_category = match category {
+                Category::NormalModeMovement => NORMAL_MODE_MOVEMENT,
+                Category::NormalModeChanges => NORMAL_MODE_CHANGES,
+                Category::NormalModeSelect => todo!(),
+                Category::NormalModeSearch => todo!(),
+                Category::ViewMode => todo!(),
+                Category::GotoMode => todo!(),
+                Category::MatchMode => todo!(),
+                Category::WindowMode => todo!(),
+                Category::SpaceMode => todo!(),
+                Category::InsertMode => todo!(),
+                Category::SelectMode => todo!(),
+                Category::Picker => todo!(),
+                Category::Prompt => todo!(),
+            };
+            gifs.append(&mut App::get_gifs(gif_category));
+        }
         self.gifs = gifs;
     }
 

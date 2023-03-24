@@ -9,7 +9,7 @@ pub struct Categories;
 pub struct CategoriesProps {
     /// Nearly all available categories. By default categories consist
     /// of all possible `Category` enum values.
-    pub categories: Vec<Category>,
+    pub active_category: Option<Category>,
     /// Callback which handles the click on a category.
     pub callback: Callback<Category>,
 }
@@ -53,28 +53,29 @@ impl Component for Categories {
     }
 
     fn view(&self, ctx: &yew::Context<Self>) -> yew::Html {
-        let categories = &ctx.props().categories;
+        let categories = Category::iter();
         html! {
             <div class="sidebox">
                 <div class="categories">
-                    <div class="title">{"Choose categories:"}</div>
-                    {for Category::iter().map(|category| {
-                        let class = if categories.contains(&category) {
+                    <div class="title">{"Choose a category:"}</div>
+                    {for categories.map(|category| {
+                        let first_category_clone = category.clone();
+                        let class = if ctx.props().active_category.eq(&Some(category)) {
                             "active"
-                        } else if category.is_disabled() {
+                        } else if first_category_clone.is_disabled() {
                             "disabled"
                         } else {
                             "inactive"
                         };
                         let callback = ctx.props().callback.clone();
-                        let category_clone = category.clone();
+                        let category_clone = first_category_clone.clone();
                         let onclick = Callback::from(move |_| {
                             let c = &category_clone;
                             callback.emit(c.clone());
                         });
                         html! {
                             <div class={classes!(class)} {onclick}>
-                                {category.to_string()}
+                                {first_category_clone.to_string()}
                             </div>
                         }
                     }
@@ -105,24 +106,5 @@ impl Category {
             Category::Picker => true,
             Category::Prompt => true,
         }
-    }
-
-    /// Toggles the category and returns all remaining categories.
-    /// If the category is already activated, make it
-    /// inactive. If inactive, make it active. If disabled, do nothing.
-    pub fn toggle_category(&self, categories: &[Category]) -> Vec<Category> {
-        let mut categories = categories.to_owned();
-        if self.is_disabled() {
-            return categories;
-        }
-        if categories.contains(self) {
-            categories = categories
-                .into_iter()
-                .filter(|c| c != self)
-                .collect::<Vec<_>>();
-        } else {
-            categories.push(self.clone());
-        }
-        categories
     }
 }
