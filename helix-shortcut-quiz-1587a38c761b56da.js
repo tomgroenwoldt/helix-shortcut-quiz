@@ -650,7 +650,7 @@ function initSync(module) {
 
 async function init(input) {
     if (typeof input === 'undefined') {
-        input = new URL('helix-shortcut-quiz-a86e3702ac201b6_bg.wasm', import.meta.url);
+        input = new URL('helix-shortcut-quiz-1587a38c761b56da_bg.wasm', import.meta.url);
     }
     const imports = getImports();
 
