@@ -4,6 +4,7 @@ mod constants;
 mod description;
 mod gif;
 mod help;
+mod progress;
 mod shortcut;
 
 use app::App;
