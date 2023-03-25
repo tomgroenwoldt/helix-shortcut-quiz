@@ -1,25 +1,28 @@
 use gloo_events::EventListener;
+use gloo_storage::{LocalStorage, Storage};
 use wasm_bindgen::JsCast;
 use web_sys::window;
 use yew::prelude::*;
 
 use crate::{
     categories::{Categories, Category},
-    constants::{EMPTY_PLACEHOLDER, END_PLACEHOLDER, NORMAL_MODE_CHANGES, NORMAL_MODE_MOVEMENT},
+    constants::{EMPTY_PLACEHOLDER, END_PLACEHOLDER},
     description::Description,
-    gif::Gif,
+    gif::{Gif, GifWrapper},
     help::Help,
+    progress::Progress,
     shortcut::Shortcut,
 };
 
 pub struct App {
     /// Stores all GIFs except the current one.
-    gifs: Vec<(String, Vec<String>, String)>,
-    current_gif: (String, Vec<String>, String),
+    gifs: Vec<GifWrapper>,
+    current_gif: GifWrapper,
     /// The input of user.
     current_guess: Vec<String>,
     state: AppState,
     active_category: Option<Category>,
+    played_gifs: Vec<String>,
 }
 
 #[derive(PartialEq)]
@@ -56,8 +59,17 @@ impl Component for App {
 
     fn create(_ctx: &Context<Self>) -> Self {
         let gifs = vec![];
-        let (path, description) = EMPTY_PLACEHOLDER;
-        let current_gif = (path.to_owned(), vec![], description.to_owned());
+
+        let current_gif = EMPTY_PLACEHOLDER.into();
+
+        // Get played GIFs of old sessions from local storage.
+        let played_gifs = match LocalStorage::get("played_gifs") {
+            Ok(local_storage) => local_storage,
+            Err(_) => {
+                LocalStorage::set::<Vec<String>>("played_gifs", vec![]).unwrap();
+                vec![]
+            }
+        };
 
         Self {
             gifs,
@@ -65,15 +77,16 @@ impl Component for App {
             current_guess: vec![],
             state: AppState::InProgress,
             active_category: None,
+            played_gifs,
         }
     }
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
-        // Don't update anything if we are finished with the game.
-        if self.state == AppState::End {
-            return false;
-        }
-        let (_, solution, _) = &self.current_gif;
+        // // Don't update anything if we are finished with the game.
+        // if self.state == AppState::End {
+        //     return false;
+        // }
+        let solution = &self.current_gif.solution;
         match msg {
             // We shouldn't allow a user input longer than the solution length.
             Msg::Key(s) if self.current_guess.len() < solution.len() => {
@@ -90,13 +103,14 @@ impl Component for App {
             }
             Msg::Next if self.current_guess.eq(solution) => {
                 self.current_guess.clear();
+                self.played_gifs.push(self.current_gif.path.clone());
+                LocalStorage::set("played_gifs", &self.played_gifs).unwrap();
                 if let Some(new_gif) = self.gifs.pop() {
                     self.current_gif = new_gif;
                 } else {
                     // If this was the last GIF, end application.
                     self.state = AppState::End;
-                    let (path, description) = END_PLACEHOLDER;
-                    self.current_gif = (path.to_owned(), vec![], description.to_owned());
+                    self.current_gif = END_PLACEHOLDER.into();
                 }
                 true
             }
@@ -129,20 +143,27 @@ impl Component for App {
                     return false;
                 }
                 self.active_category = match &self.active_category {
-                    Some(active_category) if active_category.eq(&category) => None,
-                    _ => Some(category),
-                };
-                self.set_gifs(self.active_category.clone());
-                if let Some(gif) = self.gifs.pop() {
-                    // Display the first GIF found in the newly set GIFs.
-                    self.current_gif = gif;
-                    self.state = AppState::InProgress;
-                } else {
-                    // If no GIF is found within the selected categories,
-                    // go into the empty state.
-                    self.state = AppState::Empty;
-                    let (path, description) = EMPTY_PLACEHOLDER;
-                    self.current_gif = (path.to_owned(), vec![], description.to_owned());
+                    // A click on the current category deselects it and leads to the empty state.
+                    Some(active_category) if active_category.eq(&category) => {
+                        self.state = AppState::Empty;
+                        self.gifs = vec![];
+                        self.current_gif = EMPTY_PLACEHOLDER.into();
+                        None
+                    }
+                    _ => {
+                        self.set_gifs(Some(&category));
+                        if let Some(gif) = self.gifs.pop() {
+                            // Display the first GIF found in the newly set GIFs.
+                            self.current_gif = gif;
+                            self.state = AppState::InProgress;
+                        } else {
+                            // If no GIF is found within the selected categories,
+                            // go into the empty state.
+                            self.state = AppState::End;
+                            self.current_gif = END_PLACEHOLDER.into();
+                        };
+                        Some(category)
+                    }
                 };
                 true
             }
@@ -151,19 +172,33 @@ impl Component for App {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let (path, solution, description) = &self.current_gif;
+        let GifWrapper {
+            path,
+            solution,
+            description,
+        } = &self.current_gif;
         // Callback for category click.
         let on_click = ctx.link().callback(handle_category_click);
+
         let end = self.state.eq(&AppState::End);
+
         html! {
             <div class="layout">
                 <Categories active_category={self.active_category.clone()} callback={on_click}/>
                 <div class="main">
                     <Description text={description.clone()} />
                     <Gif path={path.clone()} />
-                    <Shortcut
-                        solution={solution.clone()}
-                        guess={self.current_guess.clone()} />
+                    <div class="main-bottom-box">
+                        <Shortcut
+                            solution={solution.clone()}
+                            guess={self.current_guess.clone()} />
+                        if self.active_category.is_some() {
+                            <Progress
+                                played_gifs={self.played_gifs.clone()}
+                                current_gif={self.current_gif.path.clone()}
+                                category={self.active_category.clone().unwrap()} />
+                        }
+                    </div>
                 </div>
                 <Help {end}/>
             </div>
@@ -175,7 +210,7 @@ impl Component for App {
             return;
         }
 
-        // Add key event listener.
+        // Add key event listener on first render.
         let on_keypress = ctx.link().batch_callback(handle_keypress);
         let window = window().expect("No window? Where am I?");
         EventListener::new(&window, "keydown", move |e: &Event| {
@@ -189,41 +224,22 @@ impl Component for App {
 
 impl App {
     /// Set GIFs with respect to passed in categories.
-    fn set_gifs(&mut self, category: Option<Category>) {
-        let mut gifs = vec![];
+    fn set_gifs(&mut self, category: Option<&Category>) {
+        let mut gifs: Vec<GifWrapper> = vec![];
         if let Some(category) = category {
-            let gif_category = match category {
-                Category::NormalModeMovement => NORMAL_MODE_MOVEMENT,
-                Category::NormalModeChanges => NORMAL_MODE_CHANGES,
-                Category::NormalModeSelect => todo!(),
-                Category::NormalModeSearch => todo!(),
-                Category::ViewMode => todo!(),
-                Category::GotoMode => todo!(),
-                Category::MatchMode => todo!(),
-                Category::WindowMode => todo!(),
-                Category::SpaceMode => todo!(),
-                Category::InsertMode => todo!(),
-                Category::SelectMode => todo!(),
-                Category::Picker => todo!(),
-                Category::Prompt => todo!(),
-            };
-            gifs.append(&mut App::get_gifs(gif_category));
+            let gif_store = category.get_gifs();
+            gifs.append(&mut gif_store.iter().map(|&gif| gif.into()).collect());
+        } else {
+            // If no category is set, set gifs to the placeholder.
+            let empty_gif = EMPTY_PLACEHOLDER.into();
+            gifs.push(empty_gif);
         }
-        self.gifs = gifs;
-    }
-
-    /// Converts static stored GIF collections into an application usable object.
-    // This is a convenience feature as I don't want to deal with lifetimes.
-    fn get_gifs(constant: &[(&str, &[&str], &str)]) -> Vec<(String, Vec<String>, String)> {
-        let mut gifs = vec![];
-        constant.iter().rev().for_each(|(k, v, d)| {
-            gifs.push((
-                String::from(*k),
-                v.iter().map(|c| c.to_string()).collect::<Vec<_>>(),
-                String::from(*d),
-            ));
-        });
-        gifs
+        let filtered_gifs = gifs
+            .into_iter()
+            .rev()
+            .filter(|gif| !self.played_gifs.contains(&gif.path))
+            .collect::<Vec<_>>();
+        self.gifs = filtered_gifs;
     }
 }
 

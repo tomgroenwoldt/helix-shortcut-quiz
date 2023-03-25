@@ -1,6 +1,9 @@
+use serde::Serialize;
 use strum::{EnumIter, IntoEnumIterator};
 use strum_macros::Display;
 use yew::{classes, html, Callback, Component, Properties};
+
+use crate::constants::{NORMAL_MODE_CHANGES, NORMAL_MODE_MOVEMENT};
 
 /// Component which displays nearly all categories of helix editor modes.
 pub struct Categories;
@@ -15,7 +18,7 @@ pub struct CategoriesProps {
 }
 
 /// Nearly all possible mode categories mentioned by the helix editor docs.
-#[derive(Display, Clone, PartialEq, EnumIter)]
+#[derive(Display, Clone, PartialEq, EnumIter, Serialize)]
 pub enum Category {
     #[strum(serialize = "Normal Mode - Movement")]
     NormalModeMovement,
@@ -105,6 +108,24 @@ impl Category {
             Category::SelectMode => true,
             Category::Picker => true,
             Category::Prompt => true,
+        }
+    }
+
+    pub fn get_gifs(&self) -> &[(&str, &[&str], &str)] {
+        match self {
+            Category::NormalModeMovement => NORMAL_MODE_MOVEMENT,
+            Category::NormalModeChanges => NORMAL_MODE_CHANGES,
+            Category::NormalModeSelect => todo!(),
+            Category::NormalModeSearch => todo!(),
+            Category::ViewMode => todo!(),
+            Category::GotoMode => todo!(),
+            Category::MatchMode => todo!(),
+            Category::WindowMode => todo!(),
+            Category::SpaceMode => todo!(),
+            Category::InsertMode => todo!(),
+            Category::SelectMode => todo!(),
+            Category::Picker => todo!(),
+            Category::Prompt => todo!(),
         }
     }
 }

@@ -180,12 +180,14 @@ pub const COMMANDS: &[(&str, &str)] = &[
     ("Ctrl + R", "Repeat from start"),
 ];
 
-pub const END_PLACEHOLDER: (&str, &str) = (
+pub const END_PLACEHOLDER: (&str, &[&str], &str) = (
     "placeholder/ferris-rust.gif",
+    &[],
     "Congratulations! Thank you for playing!",
 );
 
-pub const EMPTY_PLACEHOLDER: (&str, &str) = (
+pub const EMPTY_PLACEHOLDER: (&str, &[&str], &str) = (
     "placeholder/intense-stare-crabby-crab.gif",
+    &[],
     "No GIFs found! Choose a category!",
 );
