@@ -24,19 +24,17 @@ impl Component for Shortcut {
 
     fn view(&self, ctx: &yew::Context<Self>) -> Html {
         html! {
-            <div class="main-bottom-box">
-                <div class="shortcut">
-                    // Render an input field for every solution element.
-                    {for ctx.props()
-                        .solution
-                        .iter()
-                        .enumerate()
-                        .map(|(index, key)|
-                            // Set `render_plus` for every key, except the first.
-                            Self::render_key(key, ctx.props().guess.get(index), index != 0)
-                        )
-                }
-                </div>
+            <div class="shortcut">
+                // Render an input field for every solution element.
+                {for ctx.props()
+                    .solution
+                    .iter()
+                    .enumerate()
+                    .map(|(index, key)|
+                        // Set `render_plus` for every key, except the first.
+                        Self::render_key(key, ctx.props().guess.get(index), index != 0)
+                    )
+            }
             </div>
         }
     }
