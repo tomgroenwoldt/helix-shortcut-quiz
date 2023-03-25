@@ -50,6 +50,8 @@ pub enum Msg {
     Backward,
     /// Toggles a category and reinitializes GIFs.
     ToggleCategory(Category),
+    /// Reset played GIFs in local storage for this category.
+    Reset(Category),
 }
 
 impl Component for App {
@@ -167,6 +169,23 @@ impl Component for App {
                 };
                 true
             }
+            Msg::Reset(category) => {
+                let local_storage = LocalStorage::get::<Vec<String>>("played_gifs").unwrap();
+                let updated_local_storage = local_storage
+                    .into_iter()
+                    .filter(|played_gif| !played_gif.contains(&category.base_path()))
+                    .collect::<Vec<_>>();
+
+                LocalStorage::set::<&Vec<String>>("played_gifs", &updated_local_storage).unwrap();
+                self.played_gifs = updated_local_storage;
+                self.set_gifs(Some(&category));
+                if let Some(gif) = self.gifs.pop() {
+                    // Display the first GIF found in the newly set GIFs.
+                    self.current_gif = gif;
+                    self.state = AppState::InProgress;
+                }
+                true
+            }
             _ => false,
         }
     }
@@ -178,25 +197,29 @@ impl Component for App {
             description,
         } = &self.current_gif;
         // Callback for category click.
-        let on_click = ctx.link().callback(handle_category_click);
+        let on_category_click = ctx.link().callback(handle_category_click);
+        let on_reset_click = ctx.link().callback(handle_category_reset);
 
         let end = self.state.eq(&AppState::End);
 
         html! {
             <div class="layout">
-                <Categories active_category={self.active_category.clone()} callback={on_click}/>
+                <Categories active_category={self.active_category.clone()} {on_category_click} />
                 <div class="main">
                     <Description text={description.clone()} />
                     <Gif path={path.clone()} />
                     <div class="main-bottom-box">
-                        <Shortcut
-                            solution={solution.clone()}
-                            guess={self.current_guess.clone()} />
+                        if !end {
+                            <Shortcut
+                                solution={solution.clone()}
+                                guess={self.current_guess.clone()} />
+                        }
                         if self.active_category.is_some() {
                             <Progress
                                 played_gifs={self.played_gifs.clone()}
                                 current_gif={self.current_gif.path.clone()}
-                                category={self.active_category.clone().unwrap()} />
+                                category={self.active_category.clone().unwrap()}
+                                {on_reset_click} />
                         }
                     </div>
                 </div>
@@ -267,4 +290,9 @@ fn handle_keypress(e: KeyboardEvent) -> Option<Msg> {
 /// to the `Categories` component.
 fn handle_category_click(category: Category) -> Msg {
     Msg::ToggleCategory(category)
+}
+
+fn handle_category_reset(category: Category) -> Msg {
+    gloo_console::log!("reset");
+    Msg::Reset(category)
 }

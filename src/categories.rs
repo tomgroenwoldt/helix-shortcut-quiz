@@ -14,7 +14,7 @@ pub struct CategoriesProps {
     /// of all possible `Category` enum values.
     pub active_category: Option<Category>,
     /// Callback which handles the click on a category.
-    pub callback: Callback<Category>,
+    pub on_category_click: Callback<Category>,
 }
 
 /// Nearly all possible mode categories mentioned by the helix editor docs.
@@ -70,7 +70,7 @@ impl Component for Categories {
                         } else {
                             "inactive"
                         };
-                        let callback = ctx.props().callback.clone();
+                        let callback = ctx.props().on_category_click.clone();
                         let category_clone = first_category_clone.clone();
                         let onclick = Callback::from(move |_| {
                             let c = &category_clone;
@@ -115,6 +115,24 @@ impl Category {
         match self {
             Category::NormalModeMovement => NORMAL_MODE_MOVEMENT,
             Category::NormalModeChanges => NORMAL_MODE_CHANGES,
+            Category::NormalModeSelect => todo!(),
+            Category::NormalModeSearch => todo!(),
+            Category::ViewMode => todo!(),
+            Category::GotoMode => todo!(),
+            Category::MatchMode => todo!(),
+            Category::WindowMode => todo!(),
+            Category::SpaceMode => todo!(),
+            Category::InsertMode => todo!(),
+            Category::SelectMode => todo!(),
+            Category::Picker => todo!(),
+            Category::Prompt => todo!(),
+        }
+    }
+
+    pub fn base_path(&self) -> String {
+        match self {
+            Category::NormalModeMovement => String::from("normal-mode/movement"),
+            Category::NormalModeChanges => String::from("normal-mode/changes"),
             Category::NormalModeSelect => todo!(),
             Category::NormalModeSearch => todo!(),
             Category::ViewMode => todo!(),
