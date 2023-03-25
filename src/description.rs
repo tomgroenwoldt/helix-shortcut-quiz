@@ -20,9 +20,7 @@ impl Component for Description {
 
     fn view(&self, ctx: &yew::Context<Self>) -> yew::Html {
         html! {
-            <div class="main-top-box">
-                <div class="description">{&ctx.props().text}</div>
-            </div>
+            <div class="description">{&ctx.props().text}</div>
         }
     }
 }

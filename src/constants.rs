@@ -189,5 +189,5 @@ pub const END_PLACEHOLDER: (&str, &[&str], &str) = (
 pub const EMPTY_PLACEHOLDER: (&str, &[&str], &str) = (
     "placeholder/intense-stare-crabby-crab.gif",
     &[],
-    "No GIFs found! Choose a category!",
+    "Choose a category!",
 );
