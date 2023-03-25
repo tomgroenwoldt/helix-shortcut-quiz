@@ -15,6 +15,7 @@ pub struct CategoriesProps {
     pub active_category: Option<Category>,
     /// Callback which handles the click on a category.
     pub on_category_click: Callback<Category>,
+    pub on_reset_click: Callback<Category>,
 }
 
 /// Nearly all possible mode categories mentioned by the helix editor docs.
@@ -57,6 +58,27 @@ impl Component for Categories {
 
     fn view(&self, ctx: &yew::Context<Self>) -> yew::Html {
         let categories = Category::iter();
+
+        let reset_button = if let Some(category) = &ctx.props().active_category {
+            let category_clone = category.clone();
+            let callback_clone = ctx.props().on_reset_click.clone();
+            let onclick = Callback::from(move |_| {
+                let c = category_clone.clone();
+                callback_clone.emit(c);
+            });
+            html! {
+                <div class="reset" {onclick}>
+                    <div>{"Reset this category"}</div>
+                </div>
+            }
+        } else {
+            html! {
+                <div class="disabled-reset">
+                    <div>{"Reset this category"}</div>
+                </div>
+            }
+        };
+
         html! {
             <div class="sidebox">
                 <div class="categories">
@@ -84,6 +106,7 @@ impl Component for Categories {
                     }
                     )}
                 </div>
+                {reset_button}
             </div>
         }
     }
