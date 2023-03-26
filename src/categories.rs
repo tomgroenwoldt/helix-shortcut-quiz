@@ -3,7 +3,7 @@ use strum::{EnumIter, IntoEnumIterator};
 use strum_macros::Display;
 use yew::{classes, html, Callback, Component, Properties};
 
-use crate::constants::{NORMAL_MODE_CHANGES, NORMAL_MODE_MOVEMENT};
+use crate::constants::{NORMAL_MODE_CHANGES, NORMAL_MODE_MOVEMENT, NORMAL_MODE_SEARCH};
 
 /// Component which displays nearly all categories of helix editor modes.
 pub struct Categories;
@@ -121,7 +121,7 @@ impl Category {
             Category::NormalModeMovement => false,
             Category::NormalModeChanges => false,
             Category::NormalModeSelect => true,
-            Category::NormalModeSearch => true,
+            Category::NormalModeSearch => false,
             Category::ViewMode => true,
             Category::GotoMode => true,
             Category::MatchMode => true,
@@ -139,7 +139,7 @@ impl Category {
             Category::NormalModeMovement => NORMAL_MODE_MOVEMENT,
             Category::NormalModeChanges => NORMAL_MODE_CHANGES,
             Category::NormalModeSelect => todo!(),
-            Category::NormalModeSearch => todo!(),
+            Category::NormalModeSearch => NORMAL_MODE_SEARCH,
             Category::ViewMode => todo!(),
             Category::GotoMode => todo!(),
             Category::MatchMode => todo!(),
@@ -157,7 +157,7 @@ impl Category {
             Category::NormalModeMovement => String::from("normal-mode/movement"),
             Category::NormalModeChanges => String::from("normal-mode/changes"),
             Category::NormalModeSelect => todo!(),
-            Category::NormalModeSearch => todo!(),
+            Category::NormalModeSearch => String::from("normal-mode/search"),
             Category::ViewMode => todo!(),
             Category::GotoMode => todo!(),
             Category::MatchMode => todo!(),
