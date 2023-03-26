@@ -11,6 +11,6 @@ Enter
 Type "10Gxxx"
 Sleep 100ms
 Show
-Sleep 2000ms
+Sleep 1000ms
 Alt+d
-Sleep 2000ms
+Sleep 1000ms

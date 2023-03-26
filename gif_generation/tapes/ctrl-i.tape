@@ -12,6 +12,6 @@ Type ":o long_demo.rs"
 Enter
 Ctrl+O
 Show
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+I
-Sleep 2000ms
+Sleep 1000ms

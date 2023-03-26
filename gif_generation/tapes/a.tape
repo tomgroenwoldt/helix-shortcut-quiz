@@ -11,6 +11,6 @@ Enter
 Type "8Gww"
 Sleep 100ms
 Show
-Sleep 2000ms
+Sleep 1000ms
 Type "a"
-Sleep 2000ms
+Sleep 1000ms

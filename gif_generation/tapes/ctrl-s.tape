@@ -13,4 +13,4 @@ Sleep 100ms
 Show
 Sleep 500ms
 Ctrl+S
-Sleep 2000ms
+Sleep 1000ms

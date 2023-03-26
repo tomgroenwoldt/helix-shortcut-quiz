@@ -11,12 +11,12 @@ Enter
 Type "13Ge;CC"
 Sleep 100ms
 Show
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+X
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+X
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+X
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+X
-Sleep 2000ms
+Sleep 1000ms

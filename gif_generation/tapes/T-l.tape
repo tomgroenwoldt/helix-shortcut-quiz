@@ -11,34 +11,34 @@ Enter
 Type "ge"
 Sleep 100ms
 Show
-Sleep 2000ms
+Sleep 1000ms
 Hide
 Type "T"
 Show
 Type "l"
-Sleep 2000ms
+Sleep 1000ms
 Hide
 Type "T"
 Show
 Type "l"
-Sleep 2000ms
+Sleep 1000ms
 Hide
 Type "T"
 Show
 Type "l"
-Sleep 2000ms
+Sleep 1000ms
 Hide
 Type "T"
 Show
 Type "l"
-Sleep 2000ms
+Sleep 1000ms
 Hide
 Type "T"
 Show
 Type "l"
-Sleep 2000ms
+Sleep 1000ms
 Hide
 Type "T"
 Show
 Type "l"
-Sleep 2000ms
+Sleep 1000ms

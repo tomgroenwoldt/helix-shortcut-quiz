@@ -24,8 +24,8 @@ Sleep 200ms
 Backspace
 Sleep 200ms
 Escape
-Sleep 2000ms
+Sleep 1000ms
 Type "u"
-Sleep 2000ms
+Sleep 1000ms
 Type "U"
-Sleep 2000ms
+Sleep 1000ms

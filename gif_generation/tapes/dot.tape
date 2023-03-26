@@ -14,12 +14,12 @@ Show
 Sleep 1000ms
 Type "o// Repeatable insertion."
 Escape
-Sleep 2000ms
+Sleep 1000ms
 Type "."
-Sleep 2000ms
+Sleep 1000ms
 Type "."
-Sleep 2000ms
+Sleep 1000ms
 Type "."
-Sleep 2000ms
+Sleep 1000ms
 Type "."
-Sleep 2000ms
+Sleep 1000ms

@@ -11,12 +11,12 @@ Enter
 Type "3Gww"
 Sleep 100ms
 Show
-Sleep 2000ms
+Sleep 1000ms
 Type "~"
-Sleep 2000ms
+Sleep 1000ms
 Type "~"
-Sleep 2000ms
+Sleep 1000ms
 Type "~"
-Sleep 2000ms
+Sleep 1000ms
 Type "~"
-Sleep 2000ms
+Sleep 1000ms

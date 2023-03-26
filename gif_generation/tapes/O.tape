@@ -11,8 +11,8 @@ Enter
 Type "gg"
 Sleep 100ms
 Show
-Sleep 2000ms
+Sleep 1000ms
 Type "O"
-Sleep 2000ms
+Sleep 1000ms
 Type "use std::fs;"
 Sleep 1000ms

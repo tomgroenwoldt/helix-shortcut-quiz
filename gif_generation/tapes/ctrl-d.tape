@@ -11,16 +11,16 @@ Enter
 Type "gg"
 Sleep 100ms
 Show
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+D
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+D
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+D
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+D
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+D
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+D
-Sleep 2000ms
+Sleep 1000ms

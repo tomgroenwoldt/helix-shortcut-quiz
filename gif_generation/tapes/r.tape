@@ -10,9 +10,10 @@ Type "helix demo.rs"
 Enter
 Type "12Gf)hh"
 Sleep 100ms
-Type "r"
+Show
+Sleep 1000ms
+Hide
+Type "rk"
 Sleep 100ms
 Show
-Sleep 2000ms
-Type "k"
-Sleep 2000ms
+Sleep 1000ms

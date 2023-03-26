@@ -11,16 +11,16 @@ Enter
 Type "ge"
 Sleep 100ms
 Show
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+B
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+B
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+B
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+B
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+B
-Sleep 2000ms
+Sleep 1000ms
 Ctrl+B
-Sleep 2000ms
+Sleep 1000ms

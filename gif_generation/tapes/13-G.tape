@@ -11,8 +11,8 @@ Enter
 Type "gg"
 Sleep 100ms
 Show
-Sleep 2000ms
+Sleep 1000ms
 Hide
 Type "13G"
 Show
-Sleep 2000ms
+Sleep 1000ms
