@@ -39,8 +39,8 @@ impl Component for Progress {
                 callback_clone.emit(c);
             });
             html! {
-                <div class="reset" {onclick}>
-                    <div>{"Reset this category"}</div>
+                <div class="reset">
+                    <div {onclick}>{"Reset this category"}</div>
                 </div>
             }
         } else {
