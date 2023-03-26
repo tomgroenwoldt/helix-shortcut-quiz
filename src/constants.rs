@@ -171,6 +171,34 @@ pub const NORMAL_MODE_CHANGES: &[(&str, &[&str], &str)] = &[
     ),
 ];
 
+pub const NORMAL_MODE_SEARCH: &[(&str, &[&str], &str)] = &[
+    (
+        "normal-mode/search/slash.gif",
+        &["/", "n", "e", "w"],
+        "Search for 'new'",
+    ),
+    (
+        "normal-mode/search/question-mark.gif",
+        &["?"],
+        "Search for previous pattern",
+    ),
+    (
+        "normal-mode/search/n.gif",
+        &["n"],
+        "Select next search match",
+    ),
+    (
+        "normal-mode/search/N.gif",
+        &["N"],
+        "Select previous search match",
+    ),
+    (
+        "normal-mode/search/asterisk.gif",
+        &["*"],
+        "Use current selection as the search pattern",
+    ),
+];
+
 pub const COMMANDS: &[(&str, &str)] = &[
     ("Esc", "Clear your current input"),
     ("Backspace", "Pop your current input"),
