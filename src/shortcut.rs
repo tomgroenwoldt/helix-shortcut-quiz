@@ -43,14 +43,20 @@ impl Shortcut {
     /// Renders the key. Distinguishes between correct, wrong and empty user input.
     fn render_key(key: &str, guess: Option<&String>, render_plus: bool) -> Html {
         let class = if let Some(c) = guess {
+            let mut class = String::from("");
             if c.eq(key) {
-                "correct-key"
+                class += " correct-key";
             } else {
-                "wrong-key"
+                class += " wrong-key";
             }
+            // Make the control key extra long to fit "Control" in it.
+            if c.eq("Control") {
+                class += " long";
+            }
+            class
         } else {
             // If no user input was given, render a neutral key element.
-            ""
+            String::from("")
         };
         html! {
             <>

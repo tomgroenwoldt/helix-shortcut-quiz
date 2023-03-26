@@ -68,7 +68,7 @@ body {
     align-items: center;
     justify-content: center;
     margin: auto;
-    width: 50%;
+    width: 100%;
     height: 25%;
 
     .shortcut {
@@ -91,6 +91,10 @@ body {
         border: 0.01vh solid #7f849c;
         transition: all 0.2s ease-in-out;
         background-color: rgba(205, 214, 244, 0.1);
+      }
+
+      .long {
+        aspect-ratio: 2 / 1;
       }
 
       .correct-key {

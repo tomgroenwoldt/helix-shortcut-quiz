@@ -295,7 +295,8 @@ fn handle_category_click(category: Category) -> Msg {
     Msg::ToggleCategory(category)
 }
 
+/// Handles the click on the category reset button. This function
+/// is passed down to the `Categories` and `Shortcut` component.
 fn handle_category_reset(category: Category) -> Msg {
-    gloo_console::log!("reset");
     Msg::Reset(category)
 }
