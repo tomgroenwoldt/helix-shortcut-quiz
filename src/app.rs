@@ -226,7 +226,7 @@ impl Component for App {
                         }
                     </div>
                 </div>
-                <Help {end}/>
+                <Help />
             </div>
         }
     }

@@ -205,7 +205,6 @@ pub const COMMANDS: &[(&str, &str)] = &[
     ("Enter", "Go to next shortcut after success"),
     ("Left arrow", "Skip backward"),
     ("Right arrow", "Skip forward"),
-    ("Ctrl + R", "Repeat from start"),
 ];
 
 pub const END_PLACEHOLDER: (&str, &[&str], &str) = (
