@@ -1,4 +1,4 @@
-use yew::{classes, html, Component, Properties};
+use yew::{html, Component};
 
 use crate::constants::COMMANDS;
 
@@ -8,17 +8,10 @@ pub struct Help {
     commands: Vec<(String, String)>,
 }
 
-#[derive(Properties, Clone, PartialEq)]
-pub struct HelpProperties {
-    #[prop_or(false)]
-    /// If set, hides commands which are useless after the game.
-    pub end: bool,
-}
-
 impl Component for Help {
     type Message = ();
 
-    type Properties = HelpProperties;
+    type Properties = ();
 
     fn create(_ctx: &yew::Context<Self>) -> Self {
         let commands = COMMANDS
@@ -28,37 +21,25 @@ impl Component for Help {
         Self { commands }
     }
 
-    fn view(&self, ctx: &yew::Context<Self>) -> yew::Html {
+    fn view(&self, _ctx: &yew::Context<Self>) -> yew::Html {
         let commands = &self.commands;
-        let (highlight_class, hide_class) = if ctx.props().end {
-            ("highlight", "hide")
-        } else {
-            ("", "")
-        };
         // Handle the last command separately.
-        if let Some(reload_command) = commands.iter().last() {
-            html! {
-                <div class="sidebox">
-                    <dl class="help">
-                        // Handle the rest of the commands.
-                        {for commands.iter().take(commands.len() - 1).map(|(key, description)|
+        html! {
+            <div class="sidebox">
+                <dl class="help">
+                    // Handle the rest of the commands.
+                    {for commands.iter().map(|(key, description)|
 
-                            html! {
-                                <>
-                                    <dt class={classes!(hide_class, "command")}>{String::from(key) + ":"}</dt>
-                                    <dd class={classes!(hide_class)}>{description}</dd>
-                                    <br/>
-                                </>
-                            }
-                        )}
-                        <dt class={classes!(highlight_class, "command")}>{String::from(&reload_command.0) + ":"}</dt>
-                        <dd class={classes!(highlight_class)}>{&reload_command.1}</dd>
-                        <br/>
-                    </dl>
-                </div>
-            }
-        } else {
-            html! {}
+                        html! {
+                            <>
+                                <dt class="command">{String::from(key) + ":"}</dt>
+                                <dd>{description}</dd>
+                                <br/>
+                            </>
+                        }
+                    )}
+                </dl>
+            </div>
         }
     }
 }
