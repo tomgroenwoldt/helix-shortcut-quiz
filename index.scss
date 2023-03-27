@@ -72,45 +72,82 @@ body {
     height: 25%;
 
     .shortcut {
-      height: 70%;
+      height: 100%;
       width: 100%;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      align-text: center;
-
-      .key {
+      .input {
+        display: flex;
+        justify-content: center;
+        height: 60%;
+        width: 100%;
+        .key {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          align-text: center;
+          height: 50%;
+          aspect-ratio: 1 / 1;
+          font-size: 2vh;
+          border: 0.01vh solid #cdd6f4;
+          transition: all 0.2s ease-in-out, font-size 0s;
+          background-color: rgba(205, 214, 244, 0.1);
+        }
+        .long {
+          aspect-ratio: 2 / 1;
+        }
+        .correct-key {
+          transform: scale(0.95);
+          background-color: rgba(166, 227, 161, 0.1);
+          border-color: rgb(166, 227, 161);
+        }
+        .wrong-key {
+          background-color: rgba(243, 139, 168, 0.1);
+          border-color: rgba(243, 139, 168);
+          animation: shake 0.2s;
+        }
+        .solution-key {
+          background-color: rgba(116, 199, 236, 0.1);
+          border-color: rgba(137, 180, 250);
+          color: #cdd6f4;
+        }
+        .plus {
+          font-size: 5vh;
+          margin: 0 2%;
+        }
+      }
+      .solution {
+        height: 5%;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         align-text: center;
-        height: 50%;
-        margin: 0 5%;
-        aspect-ratio: 1 / 1;
-        font-size: 4vh;
-        border: 0.01vh solid #7f849c;
-        transition: all 0.2s ease-in-out;
-        background-color: rgba(205, 214, 244, 0.1);
-      }
-
-      .long {
-        aspect-ratio: 2 / 1;
-      }
-
-      .correct-key {
-        transform: scale(0.95);
-        background-color: rgba(166, 227, 161, 0.1);
-        border-color: rgb(166, 227, 161);
-      }
-
-      .wrong-key {
-        background-color: rgba(243, 139, 168, 0.1);
-        border-color: rgba(243, 139, 168);
-        animation: shake 0.2s;
-      }
-
-      .plus {
-        font-size: 5vh;
+        font-size: 1.5vh;
+        div {
+          border: 0.01vh solid #6c7086;
+          user-select: none;
+          padding: 1%;
+          transition: all 0.1s ease-in-out, font-size 0s;
+          background-color: rgb(69, 71, 90, 0.3);
+          color: rgb(127, 132, 156);
+        }
+        .active {
+          background-color: rgba(116, 199, 236, 0.1);
+          border-color: rgba(137, 180, 250);
+          transition: all 0.1s ease-in-out;
+          transform: scale(1.2);
+          color: #cdd6f4;
+        }
+        div:hover {
+          background-color: rgba(116, 199, 236, 0.15);
+          border-color: rgba(137, 180, 250);
+          cursor: pointer;
+          transition: all 0.1s ease-in-out;
+          color: #bac2de;
+        }
       }
     }
 
@@ -168,7 +205,11 @@ body {
       background: none;
       margin: 0;
       padding: 2%;
-      transition: all 0.1s ease-in-out;
+      transition: background-color 0.1s ease-in-out;
+    }
+    .inactive:hover {
+      background-color: rgba(166, 227, 161, 0.1);
+      color: #bac2de;
     }
     .active {
       background-color: rgba(166, 227, 161, 0.2);
