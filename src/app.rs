@@ -207,7 +207,10 @@ impl Component for App {
                 <Categories active_category={self.active_category.clone()} {on_category_click} on_reset_click={on_reset_click.clone()}/>
                 <div class="main">
                     <div class="main-top-box">
-                        <div class="title">{"Helix Shortcut Quiz"}</div>
+                        <div class="title">
+                            {"Helix Shortcut Quiz"}
+                            <a class="source" href="https://github.com/tomgroenwoldt/helix-shortcut-quiz" target="_blank">{"View source"}</a>
+                        </div>
                         <Description text={description.clone()} />
                     </div>
                     <Gif path={path.clone()} />
