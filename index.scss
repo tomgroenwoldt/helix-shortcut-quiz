@@ -282,6 +282,39 @@ body {
   }
 }
 
+.modal {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+.modal-left {
+  display: flex;
+  width: 10%;
+  margin: 5%;
+  padding: 2%;
+  border: 0.01vh solid #6c7086;
+}
+
+.modal-right {
+  display: flex;
+  width: 10%;
+  margin: 5%;
+  padding: 2%;
+  border: 0.01vh solid #6c7086;
+}
+
+.modal-middle {
+  visibility: hidden;
+  width: 50%;
+  padding: 2%;
+  border: 0.01vh solid #6c7086;
+  margin: 5%;
+}
+
 @keyframes shake {
   0% {
     transform: translate(1px, 1px) rotate(0deg);

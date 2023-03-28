@@ -6,6 +6,7 @@ mod gif;
 mod help;
 mod progress;
 mod shortcut;
+mod tutorial;
 
 use app::App;
 

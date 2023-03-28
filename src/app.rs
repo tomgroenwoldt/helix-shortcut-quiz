@@ -12,6 +12,7 @@ use crate::{
     help::Help,
     progress::Progress,
     shortcut::Shortcut,
+    tutorial::Tutorial,
 };
 
 pub struct App {
@@ -204,6 +205,7 @@ impl Component for App {
 
         html! {
             <div class="layout">
+                <Tutorial />
                 <Categories active_category={self.active_category.clone()} {on_category_click} on_reset_click={on_reset_click.clone()}/>
                 <div class="main">
                     <div class="main-top-box">
