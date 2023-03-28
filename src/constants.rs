@@ -199,6 +199,84 @@ pub const NORMAL_MODE_SEARCH: &[(&str, &[&str], &str)] = &[
     ),
 ];
 
+pub const NORMAL_MODE_WINDOW_MODE: &[(&str, &[&str], &str)] = &[
+    (
+        "normal-mode/minor-modes/window-mode/w.gif",
+        &["w"],
+        "Switch to next window",
+    ),
+    (
+        "normal-mode/minor-modes/window-mode/v.gif",
+        &["v"],
+        "Vertical right split",
+    ),
+    (
+        "normal-mode/minor-modes/window-mode/s.gif",
+        &["s"],
+        "Horizontal bottom split",
+    ),
+    (
+        "normal-mode/minor-modes/window-mode/f.gif",
+        &["f"],
+        "Go to files in the selection in horizontal splits",
+    ),
+    (
+        "normal-mode/minor-modes/window-mode/F.gif",
+        &["F"],
+        "Go to files in the selection in vertical splits",
+    ),
+    (
+        "normal-mode/minor-modes/window-mode/h.gif",
+        &["h"],
+        "Move to left split",
+    ),
+    (
+        "normal-mode/minor-modes/window-mode/j.gif",
+        &["j"],
+        "Move to split below",
+    ),
+    (
+        "normal-mode/minor-modes/window-mode/k.gif",
+        &["k"],
+        "Move to split above",
+    ),
+    (
+        "normal-mode/minor-modes/window-mode/l.gif",
+        &["l"],
+        "Move to right split",
+    ),
+    (
+        "normal-mode/minor-modes/window-mode/q.gif",
+        &["q"],
+        "Close current window",
+    ),
+    (
+        "normal-mode/minor-modes/window-mode/o.gif",
+        &["o"],
+        "Only keep the current window, closing all the others",
+    ),
+    (
+        "normal-mode/minor-modes/window-mode/H.gif",
+        &["H"],
+        "Swap window to the left",
+    ),
+    (
+        "normal-mode/minor-modes/window-mode/J.gif",
+        &["J"],
+        "Swap window downwards",
+    ),
+    (
+        "normal-mode/minor-modes/window-mode/K.gif",
+        &["K"],
+        "Swap window upwards",
+    ),
+    (
+        "normal-mode/minor-modes/window-mode/L.gif",
+        &["L"],
+        "Swap window to the right",
+    ),
+];
+
 pub const COMMANDS: &[(&str, &str)] = &[
     ("Esc", "Clear your current input"),
     ("Backspace", "Pop your current input"),

@@ -1,4 +1,4 @@
-Output "gifs/normal-mode/search/asterisk.gif"
+Output "../gifs/normal-mode/search/asterisk.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20

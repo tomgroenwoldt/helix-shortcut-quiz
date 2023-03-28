@@ -129,12 +129,17 @@ body {
         }
         .solution-key {
           background-color: rgba(116, 199, 236, 0.1);
-          border-color: rgba(137, 180, 250);
+          border-color: rgb(137, 180, 250);
           color: #cdd6f4;
         }
         .plus {
           font-size: 5vh;
           margin: 0 2%;
+        }
+        .prefix {
+          border: 0.01vh solid #7f849c;
+          color: #7f849c;
+          background-color: rgba(127, 132, 156, 0.1);
         }
       }
       .solution {

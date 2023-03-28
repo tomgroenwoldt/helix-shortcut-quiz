@@ -1,4 +1,4 @@
-Output "gifs/normal-mode/search/slash.gif"
+Output "../gifs/normal-mode/search/slash.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20

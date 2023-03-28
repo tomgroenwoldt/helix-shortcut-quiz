@@ -1,4 +1,4 @@
-Output "gifs/normal-mode/movement/alt-dot.gif"
+Output "../gifs/normal-mode/movement/alt-dot.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20

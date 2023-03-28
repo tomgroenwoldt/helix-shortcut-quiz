@@ -1,4 +1,4 @@
-Output "gifs/normal-mode/movement/w.gif"
+Output "../gifs/normal-mode/movement/w.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20
