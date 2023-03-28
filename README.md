@@ -3,7 +3,7 @@
 
 A web quiz built with [yew](https://yew.rs/) for testing your knowledge of [helix editor](https://helix-editor.com/) shortcuts.
 
-![helix-shortcut-quiz](https://user-images.githubusercontent.com/70777530/227748469-b00aaae1-7fef-4310-afe5-cd5416ecd0b4.gif)
+![helix-shortcut-quiz](https://user-images.githubusercontent.com/70777530/228351818-b7ebe8f2-a672-4759-86ab-e395c9cf211b.gif)
 
 ## Development
 
