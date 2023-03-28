@@ -218,7 +218,8 @@ impl Component for App {
                         if !end {
                             <Shortcut
                                 solution={solution.clone()}
-                                guess={self.current_guess.clone()} />
+                                guess={self.current_guess.clone()}
+                                category={self.active_category.clone()}/>
                         }
                         if self.active_category.is_some() {
                             <Progress

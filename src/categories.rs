@@ -3,7 +3,9 @@ use strum::{EnumIter, IntoEnumIterator};
 use strum_macros::Display;
 use yew::{classes, html, Callback, Component, Properties};
 
-use crate::constants::{NORMAL_MODE_CHANGES, NORMAL_MODE_MOVEMENT, NORMAL_MODE_SEARCH};
+use crate::constants::{
+    NORMAL_MODE_CHANGES, NORMAL_MODE_MOVEMENT, NORMAL_MODE_SEARCH, NORMAL_MODE_WINDOW_MODE,
+};
 
 /// Component which displays nearly all categories of helix editor modes.
 pub struct Categories;
@@ -125,7 +127,7 @@ impl Category {
             Category::ViewMode => true,
             Category::GotoMode => true,
             Category::MatchMode => true,
-            Category::WindowMode => true,
+            Category::WindowMode => false,
             Category::SpaceMode => true,
             Category::InsertMode => true,
             Category::SelectMode => true,
@@ -143,7 +145,7 @@ impl Category {
             Category::ViewMode => todo!(),
             Category::GotoMode => todo!(),
             Category::MatchMode => todo!(),
-            Category::WindowMode => todo!(),
+            Category::WindowMode => NORMAL_MODE_WINDOW_MODE,
             Category::SpaceMode => todo!(),
             Category::InsertMode => todo!(),
             Category::SelectMode => todo!(),
@@ -161,12 +163,30 @@ impl Category {
             Category::ViewMode => todo!(),
             Category::GotoMode => todo!(),
             Category::MatchMode => todo!(),
-            Category::WindowMode => todo!(),
+            Category::WindowMode => String::from("normal-mode/minor-modes/window-mode"),
             Category::SpaceMode => todo!(),
             Category::InsertMode => todo!(),
             Category::SelectMode => todo!(),
             Category::Picker => todo!(),
             Category::Prompt => todo!(),
+        }
+    }
+
+    pub fn prefix(&self) -> Vec<String> {
+        match self {
+            Category::NormalModeMovement => vec![],
+            Category::NormalModeChanges => vec![],
+            Category::NormalModeSelect => vec![],
+            Category::NormalModeSearch => vec![],
+            Category::ViewMode => vec![],
+            Category::GotoMode => vec![],
+            Category::MatchMode => vec![],
+            Category::WindowMode => vec![String::from("Control"), String::from("w")],
+            Category::SpaceMode => vec![],
+            Category::InsertMode => vec![],
+            Category::SelectMode => vec![],
+            Category::Picker => vec![],
+            Category::Prompt => vec![],
         }
     }
 }

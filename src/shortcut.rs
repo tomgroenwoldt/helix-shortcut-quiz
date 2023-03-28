@@ -1,5 +1,7 @@
 use yew::{classes, html, Component, Html, Properties};
 
+use crate::categories::Category;
+
 /// Component which renders the input fields for the user.
 /// The number of input fields directly depend on the length
 /// of the solution length.
@@ -17,6 +19,7 @@ pub struct ShortcutProperties {
     pub solution: Vec<String>,
     /// The current user input.
     pub guess: Vec<String>,
+    pub category: Option<Category>,
 }
 
 impl Component for Shortcut {
@@ -47,10 +50,19 @@ impl Component for Shortcut {
     fn view(&self, ctx: &yew::Context<Self>) -> Html {
         let onclick = ctx.link().callback(|_| Msg::ShowSolution);
         let class = if self.view_solution { "active" } else { "" };
+        let prefix = if let Some(category) = ctx.props().category.clone() {
+            category.prefix()
+        } else {
+            vec![]
+        };
         html! {
             <div class="shortcut">
                 <div class="input">
                     // Render an input field for every solution element.
+                    {for prefix
+                        .iter()
+                        .map(Self::render_prefix)
+                    }
                     {for ctx.props()
                         .solution
                         .iter()
@@ -104,6 +116,20 @@ impl Shortcut {
                 } else {
                     <div class={classes!("key", class)}>{guess}</div>
                 }
+            </>
+        }
+    }
+
+    fn render_prefix(key: &String) -> Html {
+        let class = if key.eq("Control") {
+            "key prefix long"
+        } else {
+            "key prefix"
+        };
+        html! {
+            <>
+                <div {class}>{key}</div>
+                <span class="plus">{"+"}</span>
             </>
         }
     }
