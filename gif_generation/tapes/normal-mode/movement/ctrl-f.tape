@@ -1,4 +1,4 @@
-Output "gifs/normal-mode/movement/ctrl-f.gif"
+Output "../gifs/normal-mode/movement/ctrl-f.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20

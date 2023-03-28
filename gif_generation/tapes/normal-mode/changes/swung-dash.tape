@@ -1,4 +1,4 @@
-Output "gifs/normal-mode/changes/swung-dash.gif"
+Output "../gifs/normal-mode/changes/swung-dash.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20

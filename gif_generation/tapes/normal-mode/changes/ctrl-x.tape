@@ -1,4 +1,4 @@
-Output "gifs/normal-mode/changes/ctrl-x.gif"
+Output "../gifs/normal-mode/changes/ctrl-x.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20

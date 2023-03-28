@@ -1,4 +1,4 @@
-Output "gifs/normal-mode/search/N.gif"
+Output "../gifs/normal-mode/search/N.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20
