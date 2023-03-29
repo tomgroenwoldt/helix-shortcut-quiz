@@ -37,23 +37,6 @@ body {
       font-size: 5vh;
       display: flex;
       flex-direction: column;
-      a {
-        font-size: 0.8vh;
-        display: flex;
-        margin: 0 auto;
-        padding: 1%;
-        border: 0.01vh solid #7f849c;
-        transition: all 0.1s ease-in-out, font-size 0s;
-        color: inherit;
-        text-decoration: none;
-      }
-      a:hover {
-        background-color: rgba(116, 199, 236, 0.15);
-        border-color: rgba(137, 180, 250);
-        cursor: pointer;
-        transition: all 0.1s ease-in-out, font-size 0s;
-        color: #bac2de;
-      }
     }
     .description {
       margin: auto;
@@ -264,6 +247,23 @@ body {
     .hide {
       color: rgb(110, 115, 141);
     }
+  }
+  a {
+    font-size: 1.5vh;
+    display: flex;
+    margin: 2% auto;
+    padding: 2%;
+    border: 0.01vh solid #7f849c;
+    transition: all 0.1s ease-in-out, font-size 0s;
+    color: inherit;
+    text-decoration: none;
+  }
+  a:hover {
+    background-color: rgba(116, 199, 236, 0.15);
+    border-color: rgba(137, 180, 250);
+    cursor: pointer;
+    transition: all 0.1s ease-in-out, font-size 0s;
+    color: #bac2de;
   }
 }
 

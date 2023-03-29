@@ -39,6 +39,11 @@ impl Component for Help {
                         }
                     )}
                 </dl>
+                <a class="source"
+                    href="https://github.com/tomgroenwoldt/helix-shortcut-quiz"
+                    target="_blank">
+                    {"View source"}
+                </a>
             </div>
         }
     }
