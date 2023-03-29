@@ -34,7 +34,6 @@ dependency which uses the [`xterm.js`](https://github.com/xtermjs/xterm.js) canv
 
 If you want to generate the GIFs yourself you should go ahead, clone the custom forks I made and use those binaries instead.
 After building the two binaries place them in the `gif_generation/` directory and execute `generate_all_gifs.sh`. 
-For now one has to copy the generated folder containing the GIFs manually to the root directory.
 
 #### Running
 

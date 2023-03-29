@@ -209,7 +209,6 @@ impl Component for App {
                     <div class="main-top-box">
                         <div class="title">
                             {"Helix Shortcut Quiz"}
-                            <a class="source" href="https://github.com/tomgroenwoldt/helix-shortcut-quiz" target="_blank">{"View source"}</a>
                         </div>
                         <Description text={description.clone()} />
                     </div>

@@ -277,6 +277,39 @@ pub const NORMAL_MODE_WINDOW_MODE: &[(&str, &[&str], &str)] = &[
     ),
 ];
 
+pub const NORMAL_MODE_MATCH_MODE: &[(&str, &[&str], &str)] = &[
+    (
+        "normal-mode/minor-modes/match-mode/m.gif",
+        &["m", "m"],
+        "Goto matching bracket",
+    ),
+    (
+        "normal-mode/minor-modes/match-mode/s.gif",
+        &["m", "s", "{"],
+        "Surround current selection with '{'",
+    ),
+    (
+        "normal-mode/minor-modes/match-mode/r.gif",
+        &["m", "r", "{", "("],
+        "Replace surround character '{' with '('",
+    ),
+    (
+        "normal-mode/minor-modes/match-mode/d.gif",
+        &["m", "d", "{"],
+        "Delete surround character '{'",
+    ),
+    (
+        "normal-mode/minor-modes/match-mode/a.gif",
+        &["m", "a", "f"],
+        "Select around function",
+    ),
+    (
+        "normal-mode/minor-modes/match-mode/i.gif",
+        &["m", "i", "W"],
+        "Select inside WORD",
+    ),
+];
+
 pub const COMMANDS: &[(&str, &str)] = &[
     ("Esc", "Clear your current input"),
     ("Backspace", "Pop your current input"),

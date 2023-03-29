@@ -4,7 +4,8 @@ use strum_macros::Display;
 use yew::{classes, html, Callback, Component, Properties};
 
 use crate::constants::{
-    NORMAL_MODE_CHANGES, NORMAL_MODE_MOVEMENT, NORMAL_MODE_SEARCH, NORMAL_MODE_WINDOW_MODE,
+    NORMAL_MODE_CHANGES, NORMAL_MODE_MATCH_MODE, NORMAL_MODE_MOVEMENT, NORMAL_MODE_SEARCH,
+    NORMAL_MODE_WINDOW_MODE,
 };
 
 /// Component which displays nearly all categories of helix editor modes.
@@ -126,7 +127,7 @@ impl Category {
             Category::NormalModeSearch => false,
             Category::ViewMode => true,
             Category::GotoMode => true,
-            Category::MatchMode => true,
+            Category::MatchMode => false,
             Category::WindowMode => false,
             Category::SpaceMode => true,
             Category::InsertMode => true,
@@ -144,7 +145,7 @@ impl Category {
             Category::NormalModeSearch => NORMAL_MODE_SEARCH,
             Category::ViewMode => todo!(),
             Category::GotoMode => todo!(),
-            Category::MatchMode => todo!(),
+            Category::MatchMode => NORMAL_MODE_MATCH_MODE,
             Category::WindowMode => NORMAL_MODE_WINDOW_MODE,
             Category::SpaceMode => todo!(),
             Category::InsertMode => todo!(),
@@ -162,7 +163,7 @@ impl Category {
             Category::NormalModeSearch => String::from("normal-mode/search"),
             Category::ViewMode => todo!(),
             Category::GotoMode => todo!(),
-            Category::MatchMode => todo!(),
+            Category::MatchMode => String::from("normal-mode/minor-modes/match-mode"),
             Category::WindowMode => String::from("normal-mode/minor-modes/window-mode"),
             Category::SpaceMode => todo!(),
             Category::InsertMode => todo!(),
