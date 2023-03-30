@@ -647,15 +647,15 @@ function getImports() {
     imports.wbg.__wbindgen_throw = function(arg0, arg1) {
         throw new Error(getStringFromWasm0(arg0, arg1));
     };
-    imports.wbg.__wbindgen_closure_wrapper173 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 45, __wbg_adapter_18);
+    imports.wbg.__wbindgen_closure_wrapper340 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 185, __wbg_adapter_18);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper430 = function(arg0, arg1, arg2) {
+    imports.wbg.__wbindgen_closure_wrapper432 = function(arg0, arg1, arg2) {
         const ret = makeMutClosure(arg0, arg1, 226, __wbg_adapter_21);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper777 = function(arg0, arg1, arg2) {
+    imports.wbg.__wbindgen_closure_wrapper779 = function(arg0, arg1, arg2) {
         const ret = makeMutClosure(arg0, arg1, 340, __wbg_adapter_24);
         return addHeapObject(ret);
     };
@@ -694,7 +694,7 @@ function initSync(module) {
 
 async function init(input) {
     if (typeof input === 'undefined') {
-        input = new URL('helix-shortcut-quiz-fc68d5a3dce897c8_bg.wasm', import.meta.url);
+        input = new URL('helix-shortcut-quiz-23b24c9f14c6b84b_bg.wasm', import.meta.url);
     }
     const imports = getImports();
 
