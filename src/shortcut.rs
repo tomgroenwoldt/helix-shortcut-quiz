@@ -20,6 +20,7 @@ pub struct ShortcutProperties {
     /// The current user input.
     pub guess: Vec<String>,
     pub category: Option<Category>,
+    pub prefix: Vec<String>,
 }
 
 impl Component for Shortcut {
@@ -50,16 +51,11 @@ impl Component for Shortcut {
     fn view(&self, ctx: &yew::Context<Self>) -> Html {
         let onclick = ctx.link().callback(|_| Msg::ShowSolution);
         let class = if self.view_solution { "active" } else { "" };
-        let prefix = if let Some(category) = ctx.props().category.clone() {
-            category.prefix()
-        } else {
-            vec![]
-        };
         html! {
             <div class="shortcut">
                 <div class="input">
                     // Render an input field for every solution element.
-                    {for prefix
+                    {for ctx.props().prefix
                         .iter()
                         .map(Self::render_prefix)
                     }
