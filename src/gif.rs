@@ -6,14 +6,16 @@ pub struct GifWrapper {
     pub path: String,
     pub solution: Vec<String>,
     pub description: String,
+    pub prefix: Vec<String>,
 }
 
-impl From<(&str, &[&str], &str)> for GifWrapper {
-    fn from(value: (&str, &[&str], &str)) -> Self {
+impl From<(&str, &[&str], &str, &[&str])> for GifWrapper {
+    fn from(value: (&str, &[&str], &str, &[&str])) -> Self {
         Self {
             path: value.0.to_owned(),
             solution: value.1.iter().map(|c| c.to_string()).collect::<Vec<_>>(),
             description: value.2.to_owned(),
+            prefix: value.3.iter().map(|c| c.to_string()).collect::<Vec<_>>(),
         }
     }
 }

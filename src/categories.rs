@@ -137,7 +137,7 @@ impl Category {
         }
     }
 
-    pub fn get_gifs(&self) -> &[(&str, &[&str], &str)] {
+    pub fn get_gifs(&self) -> &[(&str, &[&str], &str, &[&str])] {
         match self {
             Category::NormalModeMovement => NORMAL_MODE_MOVEMENT,
             Category::NormalModeChanges => NORMAL_MODE_CHANGES,
@@ -170,24 +170,6 @@ impl Category {
             Category::SelectMode => todo!(),
             Category::Picker => todo!(),
             Category::Prompt => todo!(),
-        }
-    }
-
-    pub fn prefix(&self) -> Vec<String> {
-        match self {
-            Category::NormalModeMovement => vec![],
-            Category::NormalModeChanges => vec![],
-            Category::NormalModeSelect => vec![],
-            Category::NormalModeSearch => vec![],
-            Category::ViewMode => vec![],
-            Category::GotoMode => vec![],
-            Category::MatchMode => vec![],
-            Category::WindowMode => vec![String::from("Control"), String::from("w")],
-            Category::SpaceMode => vec![],
-            Category::InsertMode => vec![],
-            Category::SelectMode => vec![],
-            Category::Picker => vec![],
-            Category::Prompt => vec![],
         }
     }
 }

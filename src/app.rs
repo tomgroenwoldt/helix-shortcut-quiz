@@ -195,6 +195,7 @@ impl Component for App {
             path,
             solution,
             description,
+            prefix,
         } = &self.current_gif;
         // Callback for category click.
         let on_category_click = ctx.link().callback(handle_category_click);
@@ -218,7 +219,8 @@ impl Component for App {
                             <Shortcut
                                 solution={solution.clone()}
                                 guess={self.current_guess.clone()}
-                                category={self.active_category.clone()}/>
+                                category={self.active_category.clone()}
+                                prefix={prefix.clone()} />
                         }
                         if self.active_category.is_some() {
                             <Progress
