@@ -7,6 +7,7 @@ pub struct GifWrapper {
     pub solution: Vec<String>,
     pub description: String,
     pub prefix: Vec<String>,
+    pub played: bool,
 }
 
 impl From<(&str, &[&str], &str, &[&str])> for GifWrapper {
@@ -16,6 +17,7 @@ impl From<(&str, &[&str], &str, &[&str])> for GifWrapper {
             solution: value.1.iter().map(|c| c.to_string()).collect::<Vec<_>>(),
             description: value.2.to_owned(),
             prefix: value.3.iter().map(|c| c.to_string()).collect::<Vec<_>>(),
+            played: false,
         }
     }
 }

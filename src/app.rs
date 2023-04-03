@@ -1,5 +1,6 @@
 use gloo_events::EventListener;
 use gloo_storage::{LocalStorage, Storage};
+use std::{cell::RefCell, rc::Rc};
 use wasm_bindgen::JsCast;
 use web_sys::window;
 use yew::prelude::*;
@@ -15,13 +16,17 @@ use crate::{
 };
 
 pub struct App {
-    /// Stores all GIFs except the current one.
-    gifs: Vec<GifWrapper>,
-    current_gif: GifWrapper,
-    /// The input of user.
+    /// All GIFs in current game.
+    gifs: Vec<Rc<RefCell<GifWrapper>>>,
+    /// A current position of current GIF.
+    current_position: usize,
+    /// A reference to the current GIF.
+    current_gif: Rc<RefCell<GifWrapper>>,
+    /// The input of the user.
     current_guess: Vec<String>,
     state: AppState,
     active_category: Option<Category>,
+    /// Played GIFs fetched from clients local storage.
     played_gifs: Vec<String>,
 }
 
@@ -35,6 +40,12 @@ pub enum AppState {
     End,
 }
 
+#[derive(PartialEq)]
+pub enum ForwardType {
+    Skip,
+    Success,
+}
+
 pub enum Msg {
     /// Adds supplied key as string to the user input.
     Key(String),
@@ -42,10 +53,8 @@ pub enum Msg {
     Backspace,
     /// Clears user input.
     Escape,
-    /// Moves to the next GIF by popping an element of the GIFs stored in `App`.
-    Next,
-    /// Skips current GIF and moves forward.
-    Forward,
+    /// Moves forward, skips or saves progress respectively.
+    Forward(ForwardType),
     /// Skips current GIF and moves backward.
     Backward,
     /// Toggles a category and reinitializes GIFs.
@@ -62,7 +71,7 @@ impl Component for App {
     fn create(_ctx: &Context<Self>) -> Self {
         let gifs = vec![];
 
-        let current_gif = EMPTY_PLACEHOLDER.into();
+        let current_gif = Rc::new(RefCell::new(EMPTY_PLACEHOLDER.into()));
 
         // Get played GIFs of old sessions from local storage.
         let played_gifs = match LocalStorage::get("played_gifs") {
@@ -76,6 +85,7 @@ impl Component for App {
         Self {
             gifs,
             current_gif,
+            current_position: 0,
             current_guess: vec![],
             state: AppState::InProgress,
             active_category: None,
@@ -84,11 +94,7 @@ impl Component for App {
     }
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
-        // // Don't update anything if we are finished with the game.
-        // if self.state == AppState::End {
-        //     return false;
-        // }
-        let solution = &self.current_gif.solution;
+        let solution = &self.current_gif.borrow().solution.clone();
         match msg {
             // We shouldn't allow a user input longer than the solution length.
             Msg::Key(s) if self.current_guess.len() < solution.len() => {
@@ -103,42 +109,49 @@ impl Component for App {
                 self.current_guess.clear();
                 true
             }
-            Msg::Next if self.current_guess.eq(solution) => {
-                self.current_guess.clear();
-                self.played_gifs.push(self.current_gif.path.clone());
-                LocalStorage::set("played_gifs", &self.played_gifs).unwrap();
-                if let Some(new_gif) = self.gifs.pop() {
-                    self.current_gif = new_gif;
-                } else {
-                    // If this was the last GIF, end application.
-                    self.state = AppState::End;
-                    self.current_gif = END_PLACEHOLDER.into();
+            Msg::Forward(value) => {
+                if value.eq(&ForwardType::Success) {
+                    self.current_guess.clear();
+                    self.current_gif.borrow_mut().played = true;
+
+                    // Add played GIF to local storage.
+                    self.played_gifs
+                        .push(self.current_gif.borrow().path.clone());
+                    LocalStorage::set("played_gifs", &self.played_gifs).unwrap();
                 }
-                true
-            }
-            Msg::Forward => {
-                if let Some(next_gif) = self.gifs.pop() {
-                    // Reinsert the skipped GIF.
-                    self.gifs.insert(0, self.current_gif.clone());
-                    self.current_guess = vec![];
-                    self.current_gif = next_gif;
-                    true
-                } else {
-                    // The last GIF should be displayed again, when trying to move forward.
-                    false
+                // Find the first unplayed GIFs which comes after the
+                // current position. This wraps around via the `cycle()` call.
+                if let Some((new_position, next_gif)) = self
+                    .gifs
+                    .iter()
+                    .enumerate()
+                    .cycle()
+                    .skip(self.current_position + 1)
+                    .find(|(_, gif)| !gif.borrow().played)
+                {
+                    self.current_gif = Rc::clone(next_gif);
+                    self.current_position = new_position;
+                    return true;
                 }
+                false
             }
             Msg::Backward => {
-                // The last GIF should be displayed again, when trying to move backward.
-                if self.gifs.len() < 2 {
-                    return false;
+                // Find the first unplayed GIFs which comes in front of the
+                // current position. This wraps around via the `cycle()` call.
+                if let Some((new_position, previous_gif)) = self
+                    .gifs
+                    .iter()
+                    .enumerate()
+                    .rev()
+                    .cycle()
+                    .skip(self.gifs.len() - self.current_position)
+                    .find(|(_, gif)| !gif.borrow().played)
+                {
+                    self.current_gif = Rc::clone(previous_gif);
+                    self.current_position = new_position;
+                    return true;
                 }
-                let next_gif = self.gifs.remove(0);
-                // Reinsert the skipped GIF.
-                self.gifs.push(self.current_gif.clone());
-                self.current_guess = vec![];
-                self.current_gif = next_gif;
-                true
+                false
             }
             Msg::ToggleCategory(category) => {
                 if category.is_disabled() {
@@ -149,20 +162,26 @@ impl Component for App {
                     Some(active_category) if active_category.eq(&category) => {
                         self.state = AppState::Empty;
                         self.gifs = vec![];
-                        self.current_gif = EMPTY_PLACEHOLDER.into();
+                        self.current_gif.replace(EMPTY_PLACEHOLDER.into());
                         None
                     }
+                    // Otherwise set GIFs for new category.
                     _ => {
                         self.set_gifs(Some(&category));
-                        if let Some(gif) = self.gifs.pop() {
-                            // Display the first GIF found in the newly set GIFs.
-                            self.current_gif = gif;
-                            self.state = AppState::InProgress;
+                        if let Some((new_position, new_gif)) = self
+                            .gifs
+                            .iter()
+                            .enumerate()
+                            .find(|(_, gif)| !gif.borrow().played)
+                        {
+                            self.current_gif = Rc::clone(new_gif);
+                            self.current_position = new_position;
                         } else {
-                            // If no GIF is found within the selected categories,
-                            // go into the empty state.
+                            // No GIFs found within the selected category.
+                            // This means all GIFs have been played with success.
+                            // Go into the empty state.
                             self.state = AppState::End;
-                            self.current_gif = END_PLACEHOLDER.into();
+                            self.current_gif.replace(END_PLACEHOLDER.into());
                         };
                         Some(category)
                     }
@@ -170,6 +189,7 @@ impl Component for App {
                 true
             }
             Msg::Reset(category) => {
+                // Empties the local storage for specific category.
                 let local_storage = LocalStorage::get::<Vec<String>>("played_gifs").unwrap();
                 let updated_local_storage = local_storage
                     .into_iter()
@@ -179,9 +199,9 @@ impl Component for App {
                 LocalStorage::set::<&Vec<String>>("played_gifs", &updated_local_storage).unwrap();
                 self.played_gifs = updated_local_storage;
                 self.set_gifs(Some(&category));
-                if let Some(gif) = self.gifs.pop() {
-                    // Display the first GIF found in the newly set GIFs.
-                    self.current_gif = gif;
+                if let Some(gif) = self.gifs.first() {
+                    // Create reference to the first GIF found in the newly set GIFs.
+                    self.current_gif = Rc::clone(gif);
                     self.state = AppState::InProgress;
                 }
                 true
@@ -191,17 +211,12 @@ impl Component for App {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let GifWrapper {
-            path,
-            solution,
-            description,
-            prefix,
-        } = &self.current_gif;
         // Callback for category click.
         let on_category_click = ctx.link().callback(handle_category_click);
         let on_reset_click = ctx.link().callback(handle_category_reset);
 
         let end = self.state.eq(&AppState::End);
+        let current_gif = self.current_gif.borrow();
 
         html! {
             <div class="layout">
@@ -211,21 +226,21 @@ impl Component for App {
                         <div class="title">
                             {"Helix Shortcut Quiz"}
                         </div>
-                        <Description text={description.clone()} />
+                        <Description text={current_gif.description.clone()} />
                     </div>
-                    <Gif path={path.clone()} />
+                    <Gif path={current_gif.path.clone()} />
                     <div class="main-bottom-box">
                         if !end {
                             <Shortcut
-                                solution={solution.clone()}
+                                solution={current_gif.solution.clone()}
                                 guess={self.current_guess.clone()}
                                 category={self.active_category.clone()}
-                                prefix={prefix.clone()} />
+                                prefix={current_gif.prefix.clone()} />
                         }
                         if self.active_category.is_some() {
                             <Progress
                                 played_gifs={self.played_gifs.clone()}
-                                current_gif={self.current_gif.path.clone()}
+                                current_gif={current_gif.path.clone()}
                                 category={self.active_category.clone().unwrap()}
                                 {on_reset_click} />
                         }
@@ -240,7 +255,6 @@ impl Component for App {
         if !first_render {
             return;
         }
-
         // Add key event listener on first render.
         let on_keypress = ctx.link().batch_callback(handle_keypress);
         let window = window().expect("No window? Where am I?");
@@ -265,10 +279,17 @@ impl App {
             let empty_gif = EMPTY_PLACEHOLDER.into();
             gifs.push(empty_gif);
         }
+
         let filtered_gifs = gifs
             .into_iter()
-            .rev()
-            .filter(|gif| !self.played_gifs.contains(&gif.path))
+            .map(|mut gif| {
+                if self.played_gifs.contains(&gif.path) {
+                    gif.played = true;
+                }
+                gif
+            })
+            .map(RefCell::new)
+            .map(Rc::new)
             .collect::<Vec<_>>();
         self.gifs = filtered_gifs;
     }
@@ -280,13 +301,13 @@ fn handle_keypress(e: KeyboardEvent) -> Option<Msg> {
     if key == "Backspace" {
         Some(Msg::Backspace)
     } else if key == "ArrowRight" {
-        Some(Msg::Forward)
+        Some(Msg::Forward(ForwardType::Skip))
     } else if key == "ArrowLeft" {
         Some(Msg::Backward)
     } else if key == "Escape" {
         Some(Msg::Escape)
     } else if key == "Enter" {
-        Some(Msg::Next)
+        Some(Msg::Forward(ForwardType::Success))
     } else if key == "CapsLock" || key == "Shift" {
         None
     } else {
