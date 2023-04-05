@@ -3,9 +3,12 @@ use strum::{EnumIter, IntoEnumIterator};
 use strum_macros::Display;
 use yew::{classes, html, Callback, Component, Properties};
 
-use crate::constants::{
-    NORMAL_MODE_CHANGES, NORMAL_MODE_MATCH_MODE, NORMAL_MODE_MOVEMENT, NORMAL_MODE_SEARCH,
-    NORMAL_MODE_WINDOW_MODE,
+use crate::{
+    constants::{
+        NORMAL_MODE_CHANGES, NORMAL_MODE_MATCH_MODE, NORMAL_MODE_MOVEMENT, NORMAL_MODE_SEARCH,
+        NORMAL_MODE_WINDOW_MODE,
+    },
+    gif::GifWrapper,
 };
 
 /// Component which displays nearly all categories of helix editor modes.
@@ -48,6 +51,7 @@ pub enum Category {
     SelectMode,
     Picker,
     Prompt,
+    Random,
 }
 
 impl Component for Categories {
@@ -63,16 +67,24 @@ impl Component for Categories {
         let categories = Category::iter();
 
         let reset_button = if let Some(category) = &ctx.props().active_category {
-            let category_clone = category.clone();
-            let callback_clone = ctx.props().on_reset_click.clone();
-            let onclick = Callback::from(move |_| {
-                let c = category_clone.clone();
-                callback_clone.emit(c);
-            });
-            html! {
-                <div class="reset">
-                    <div {onclick}>{"Reset this category"}</div>
-                </div>
+            if category.eq(&Category::Random) {
+                html! {
+                    <div class="disabled-reset">
+                        <div>{"Reset this category"}</div>
+                    </div>
+                }
+            } else {
+                let category_clone = category.clone();
+                let callback_clone = ctx.props().on_reset_click.clone();
+                let onclick = Callback::from(move |_| {
+                    let c = category_clone.clone();
+                    callback_clone.emit(c);
+                });
+                html! {
+                    <div class="reset">
+                        <div {onclick}>{"Reset this category"}</div>
+                    </div>
+                }
             }
         } else {
             html! {
@@ -134,24 +146,44 @@ impl Category {
             Category::SelectMode => true,
             Category::Picker => true,
             Category::Prompt => true,
+            Category::Random => false,
         }
     }
 
-    pub fn get_gifs(&self) -> &[(&str, &[&str], &str, &[&str])] {
+    pub fn get_gifs(&self) -> Vec<GifWrapper> {
         match self {
-            Category::NormalModeMovement => NORMAL_MODE_MOVEMENT,
-            Category::NormalModeChanges => NORMAL_MODE_CHANGES,
-            Category::NormalModeSelect => todo!(),
-            Category::NormalModeSearch => NORMAL_MODE_SEARCH,
-            Category::ViewMode => todo!(),
-            Category::GotoMode => todo!(),
-            Category::MatchMode => NORMAL_MODE_MATCH_MODE,
-            Category::WindowMode => NORMAL_MODE_WINDOW_MODE,
-            Category::SpaceMode => todo!(),
-            Category::InsertMode => todo!(),
-            Category::SelectMode => todo!(),
-            Category::Picker => todo!(),
-            Category::Prompt => todo!(),
+            Category::NormalModeMovement => NORMAL_MODE_MOVEMENT
+                .iter()
+                .map(|&gif| gif.into())
+                .collect::<Vec<_>>(),
+            Category::NormalModeChanges => NORMAL_MODE_CHANGES
+                .iter()
+                .map(|&gif| gif.into())
+                .collect::<Vec<_>>(),
+            Category::NormalModeSelect => vec![],
+            Category::NormalModeSearch => NORMAL_MODE_SEARCH
+                .iter()
+                .map(|&gif| gif.into())
+                .collect::<Vec<_>>(),
+            Category::ViewMode => vec![],
+            Category::GotoMode => vec![],
+            Category::MatchMode => NORMAL_MODE_MATCH_MODE
+                .iter()
+                .map(|&gif| gif.into())
+                .collect::<Vec<_>>(),
+            Category::WindowMode => NORMAL_MODE_WINDOW_MODE
+                .iter()
+                .map(|&gif| gif.into())
+                .collect::<Vec<_>>(),
+            Category::SpaceMode => vec![],
+            Category::InsertMode => vec![],
+            Category::SelectMode => vec![],
+            Category::Picker => vec![],
+            Category::Prompt => vec![],
+            Category::Random => Category::iter()
+                .filter(|c| !c.eq(&Category::Random))
+                .flat_map(|c| c.get_gifs())
+                .collect::<Vec<_>>(),
         }
     }
 
@@ -170,6 +202,7 @@ impl Category {
             Category::SelectMode => todo!(),
             Category::Picker => todo!(),
             Category::Prompt => todo!(),
+            Category::Random => String::from("random"),
         }
     }
 }

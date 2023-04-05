@@ -1,14 +1,17 @@
+use std::{cell::RefCell, rc::Rc};
+
 use yew::{html, Callback, Component, Properties};
 
-use crate::categories::Category;
+use crate::{categories::Category, gif::GifWrapper};
 
 pub struct Progress;
 
 #[derive(Properties, Clone, PartialEq)]
 pub struct ProgressProps {
-    pub played_gifs: Vec<String>,
+    pub gifs: Vec<Rc<RefCell<GifWrapper>>>,
     pub current_gif: String,
     pub category: Category,
+    pub end: bool,
     pub on_reset_click: Callback<Category>,
 }
 
@@ -23,15 +26,9 @@ impl Component for Progress {
 
     #[allow(clippy::needless_return)]
     fn view(&self, ctx: &yew::Context<Self>) -> yew::Html {
-        let gifs = ctx
-            .props()
-            .category
-            .get_gifs()
-            .iter()
-            .map(|&gif| gif.0.to_string())
-            .collect::<Vec<_>>();
+        let gifs = ctx.props().gifs.clone();
 
-        let reset_button = if !gifs.contains(&ctx.props().current_gif) {
+        let reset_button = if ctx.props().end {
             let category_clone = ctx.props().category.clone();
             let callback_clone = ctx.props().on_reset_click.clone();
             let onclick = Callback::from(move |_| {
@@ -52,9 +49,10 @@ impl Component for Progress {
                 {reset_button}
                 <div class="progress">
                     {for gifs.iter().map(|gif| {
-                        if ctx.props().played_gifs.contains(gif) {
+                        let gif = gif.borrow();
+                        if gif.played {
                             return html! {<div class="played"></div>};
-                        } else if ctx.props().current_gif.eq(gif) {
+                        } else if gif.path.eq(&ctx.props().current_gif) {
                             return html! {<div class="active"></div>};
                         } else {
                             return html! {<div></div>};
