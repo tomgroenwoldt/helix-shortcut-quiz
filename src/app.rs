@@ -1,5 +1,6 @@
 use gloo_events::EventListener;
 use gloo_storage::{LocalStorage, Storage};
+use rand::{seq::SliceRandom, thread_rng};
 use std::{cell::RefCell, rc::Rc};
 use wasm_bindgen::JsCast;
 use web_sys::window;
@@ -95,22 +96,25 @@ impl Component for App {
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         let solution = &self.current_gif.borrow().solution.clone();
-        match msg {
+        match (msg, &self.state) {
             // We shouldn't allow a user input longer than the solution length.
-            Msg::Key(s) if self.current_guess.len() < solution.len() => {
+            (Msg::Key(s), AppState::InProgress) if self.current_guess.len() < solution.len() => {
                 self.current_guess.push(s);
                 true
             }
-            Msg::Backspace => {
+            (Msg::Backspace, AppState::InProgress) => {
                 self.current_guess.pop();
                 true
             }
-            Msg::Escape => {
+            (Msg::Escape, AppState::InProgress) => {
                 self.current_guess.clear();
                 true
             }
-            Msg::Forward(value) => {
+            (Msg::Forward(value), AppState::InProgress) => {
                 if value.eq(&ForwardType::Success) {
+                    if !self.current_guess.eq(solution) {
+                        return false;
+                    }
                     self.current_guess.clear();
                     self.current_gif.borrow_mut().played = true;
 
@@ -121,6 +125,18 @@ impl Component for App {
                 }
                 // Find the first unplayed GIFs which comes after the
                 // current position. This wraps around via the `cycle()` call.
+                if self
+                    .gifs
+                    .iter()
+                    .filter(|gif| !gif.borrow().played)
+                    .count()
+                    .eq(&0)
+                {
+                    // If this was the last GIF, end application.
+                    self.state = AppState::End;
+                    self.current_gif = Rc::new(RefCell::new(END_PLACEHOLDER.into()));
+                    return true;
+                }
                 if let Some((new_position, next_gif)) = self
                     .gifs
                     .iter()
@@ -135,7 +151,7 @@ impl Component for App {
                 }
                 false
             }
-            Msg::Backward => {
+            (Msg::Backward, AppState::InProgress) => {
                 // Find the first unplayed GIFs which comes in front of the
                 // current position. This wraps around via the `cycle()` call.
                 if let Some((new_position, previous_gif)) = self
@@ -153,7 +169,7 @@ impl Component for App {
                 }
                 false
             }
-            Msg::ToggleCategory(category) => {
+            (Msg::ToggleCategory(category), _) => {
                 if category.is_disabled() {
                     return false;
                 }
@@ -174,6 +190,7 @@ impl Component for App {
                             .enumerate()
                             .find(|(_, gif)| !gif.borrow().played)
                         {
+                            self.state = AppState::InProgress;
                             self.current_gif = Rc::clone(new_gif);
                             self.current_position = new_position;
                         } else {
@@ -188,7 +205,7 @@ impl Component for App {
                 };
                 true
             }
-            Msg::Reset(category) => {
+            (Msg::Reset(category), _) => {
                 // Empties the local storage for specific category.
                 let local_storage = LocalStorage::get::<Vec<String>>("played_gifs").unwrap();
                 let updated_local_storage = local_storage
@@ -239,9 +256,10 @@ impl Component for App {
                         }
                         if self.active_category.is_some() {
                             <Progress
-                                played_gifs={self.played_gifs.clone()}
+                                gifs={self.gifs.clone()}
                                 current_gif={current_gif.path.clone()}
                                 category={self.active_category.clone().unwrap()}
+                                {end}
                                 {on_reset_click} />
                         }
                     </div>
@@ -268,30 +286,48 @@ impl Component for App {
 }
 
 impl App {
-    /// Set GIFs with respect to passed in categories.
+    /// Set GIFs with respect to passed in category.
     fn set_gifs(&mut self, category: Option<&Category>) {
         let mut gifs: Vec<GifWrapper> = vec![];
         if let Some(category) = category {
-            let gif_store = category.get_gifs();
-            gifs.append(&mut gif_store.iter().map(|&gif| gif.into()).collect());
+            let mut gif_store = category.get_gifs();
+            gifs.append(&mut gif_store);
+
+            let filtered_gifs = match category {
+                // The random category takes 10 unplayed GIFs at random.
+                Category::Random => {
+                    let mut gifs = gifs
+                        .into_iter()
+                        .filter(|gif| !self.played_gifs.contains(&gif.path))
+                        .map(RefCell::new)
+                        .map(Rc::new)
+                        .collect::<Vec<_>>();
+                    gifs.shuffle(&mut thread_rng());
+                    gifs.into_iter().take(10).collect::<Vec<_>>()
+                }
+                // Otherwise take plain category GIFs.
+                _ => {
+                    let mut gifs = gifs
+                        .into_iter()
+                        .map(|mut gif| {
+                            if self.played_gifs.contains(&gif.path) {
+                                gif.played = true;
+                            }
+                            gif
+                        })
+                        .map(RefCell::new)
+                        .map(Rc::new)
+                        .collect::<Vec<_>>();
+                    gifs.shuffle(&mut thread_rng());
+                    gifs
+                }
+            };
+            self.gifs = filtered_gifs;
         } else {
             // If no category is set, set gifs to the placeholder.
             let empty_gif = EMPTY_PLACEHOLDER.into();
             gifs.push(empty_gif);
         }
-
-        let filtered_gifs = gifs
-            .into_iter()
-            .map(|mut gif| {
-                if self.played_gifs.contains(&gif.path) {
-                    gif.played = true;
-                }
-                gif
-            })
-            .map(RefCell::new)
-            .map(Rc::new)
-            .collect::<Vec<_>>();
-        self.gifs = filtered_gifs;
     }
 }
 
