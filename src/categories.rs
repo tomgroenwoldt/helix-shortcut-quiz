@@ -6,7 +6,7 @@ use yew::{classes, html, Callback, Component, Properties};
 use crate::{
     constants::{
         NORMAL_MODE_CHANGES, NORMAL_MODE_MATCH_MODE, NORMAL_MODE_MOVEMENT, NORMAL_MODE_SEARCH,
-        NORMAL_MODE_WINDOW_MODE,
+        NORMAL_MODE_SELECT, NORMAL_MODE_WINDOW_MODE,
     },
     gif::GifWrapper,
 };
@@ -135,7 +135,7 @@ impl Category {
         match self {
             Category::NormalModeMovement => false,
             Category::NormalModeChanges => false,
-            Category::NormalModeSelect => true,
+            Category::NormalModeSelect => false,
             Category::NormalModeSearch => false,
             Category::ViewMode => true,
             Category::GotoMode => true,
@@ -160,7 +160,10 @@ impl Category {
                 .iter()
                 .map(|&gif| gif.into())
                 .collect::<Vec<_>>(),
-            Category::NormalModeSelect => vec![],
+            Category::NormalModeSelect => NORMAL_MODE_SELECT
+                .iter()
+                .map(|&gif| gif.into())
+                .collect::<Vec<_>>(),
             Category::NormalModeSearch => NORMAL_MODE_SEARCH
                 .iter()
                 .map(|&gif| gif.into())
@@ -191,7 +194,7 @@ impl Category {
         match self {
             Category::NormalModeMovement => String::from("normal-mode/movement"),
             Category::NormalModeChanges => String::from("normal-mode/changes"),
-            Category::NormalModeSelect => todo!(),
+            Category::NormalModeSelect => String::from("normal-mode/select"),
             Category::NormalModeSearch => String::from("normal-mode/search"),
             Category::ViewMode => todo!(),
             Category::GotoMode => todo!(),

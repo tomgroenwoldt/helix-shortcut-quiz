@@ -241,6 +241,154 @@ pub const NORMAL_MODE_CHANGES: &[(&str, &[&str], &str, &[&str])] = &[
     ),
 ];
 
+// TODO: Uncomment elements when `vhs` adds support for Alt + Shift + char combinations.
+pub const NORMAL_MODE_SELECT: &[(&str, &[&str], &str, &[&str])] = &[
+    (
+        "normal-mode/select/s.gif",
+        &["s", "p", "r", "i", "n", "t"],
+        "Select all 'print' matches inside selection",
+        &[],
+    ),
+    (
+        "normal-mode/select/S.gif",
+        &["S", "g", "u", "e", "s", "s"],
+        "Split selection into sub selections on 'guess' matches",
+        &[],
+    ),
+    (
+        "normal-mode/select/&.gif",
+        &["&"],
+        "Align selection in columns",
+        &[],
+    ),
+    (
+        "normal-mode/select/underscore.gif",
+        &["_"],
+        "Trim whitespace from the selection",
+        &[],
+    ),
+    (
+        "normal-mode/select/semicolon.gif",
+        &[";"],
+        "Collapse selection onto a single cursor",
+        &[],
+    ),
+    (
+        "normal-mode/select/alt-semicolon.gif",
+        &[";"],
+        "Flip selection cursor and anchor",
+        &["Alt"],
+    ),
+    (
+        "normal-mode/select/alt-colon.gif",
+        &[":"],
+        "Ensures the selection is in forward direction",
+        &["Alt"],
+    ),
+    (
+        "normal-mode/select/comma.gif",
+        &[","],
+        "Keep only the primary selection",
+        &[],
+    ),
+    (
+        "normal-mode/select/alt-comma.gif",
+        &[","],
+        "Remove the primary selection",
+        &["Alt"],
+    ),
+    (
+        "normal-mode/select/C.gif",
+        &["C"],
+        "Copy selection onto the next line (Add cursor below)",
+        &[],
+    ),
+    // (
+    //     "normal-mode/select/alt-C.gif",
+    //     &["C"],
+    //     "Copy selection onto the previous line (Add cursor above)",
+    //     &["Alt"],
+    // ),
+    (
+        "normal-mode/select/opening-bracket.gif",
+        &["("],
+        "Rotate main selection backward",
+        &[],
+    ),
+    (
+        "normal-mode/select/closing-bracket.gif",
+        &[")"],
+        "Rotate main selection forward",
+        &[],
+    ),
+    // (
+    //     "normal-mode/select/alt-opening-bracket.gif",
+    //     &["("],
+    //     "Rotate selection content backward",
+    //     &["Alt"],
+    // ),
+    // (
+    //     "normal-mode/select/alt-closing-bracket.gif",
+    //     &[")"],
+    //     "Rotate selection content forward",
+    //     &["Alt"],
+    // ),
+    (
+        "normal-mode/select/percent.gif",
+        &["%"],
+        "Select entire file",
+        &[],
+    ),
+    (
+        "normal-mode/select/x.gif",
+        &["x"],
+        "Select current line, if already selected, extend to next line",
+        &[],
+    ),
+    // (
+    //     "normal-mode/select/X.gif",
+    //     &["X"],
+    //     "Extend selection to line bounds (line-wise selection)",
+    //     &[],
+    // ),
+    // (
+    //     "normal-mode/select/alt-x.gif",
+    //     &["x"],
+    //     "Shrink selection to line bounds (line-wise selection)",
+    //     &["Alt"],
+    // ),
+    (
+        "normal-mode/select/J.gif",
+        &["J"],
+        "Join lines inside selection",
+        &[],
+    ),
+    // (
+    //     "normal-mode/select/alt-J.gif",
+    //     &["J"],
+    //     "Join lines inside selection and select the inserted space",
+    //     &["Alt"],
+    // ),
+    // (
+    //     "normal-mode/select/K.gif",
+    //     &["K"],
+    //     "Keep selections matching the regex",
+    //     &[],
+    // ),
+    // (
+    //     "normal-mode/select/alt-K.gif",
+    //     &["K"],
+    //     "Remove selections matching the regex",
+    //     &["Alt"],
+    // ),
+    (
+        "normal-mode/select/ctrl-c.gif",
+        &["c"],
+        "Comment/uncomment selection",
+        &["Control"],
+    ),
+];
+
 pub const NORMAL_MODE_SEARCH: &[(&str, &[&str], &str, &[&str])] = &[
     (
         "normal-mode/search/slash.gif",
