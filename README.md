@@ -1,7 +1,7 @@
 [![pages-build-deployment](https://github.com/tomgroenwoldt/helix-shortcut-quiz/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/tomgroenwoldt/helix-shortcut-quiz/actions/workflows/pages/pages-build-deployment)
 # Helix Shortcut Quiz
 
-A web quiz built with [yew](https://yew.rs/) for testing your knowledge of [helix editor](https://helix-editor.com/) shortcuts.
+A web quiz built with [yew](https://yew.rs/) for testing your knowledge of [helix editor](https://helix-editor.com/) shortcuts. Try it out [here](https://tomgroenwoldt.github.io/helix-shortcut-quiz/)!
 
 ![helix-shortcut-quiz](https://user-images.githubusercontent.com/70777530/228351818-b7ebe8f2-a672-4759-86ab-e395c9cf211b.gif)
 
