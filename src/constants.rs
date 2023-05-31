@@ -554,6 +554,45 @@ pub const NORMAL_MODE_MATCH_MODE: &[(&str, &[&str], &str, &[&str])] = &[
     ),
 ];
 
+pub const NORMAL_MODE_VIEW_MODE: &[(&str, &[&str], &str, &[&str])] = &[
+    (
+        "normal-mode/minor-modes/view-mode/z.gif",
+        &["z", "z"],
+        "Vertically center the line",
+        &[],
+    ),
+    (
+        "normal-mode/minor-modes/view-mode/t.gif",
+        &["z", "t"],
+        "Align the line to the top of the screen",
+        &[],
+    ),
+    (
+        "normal-mode/minor-modes/view-mode/b.gif",
+        &["z", "b"],
+        "Align the line to the bottom of the screen",
+        &[],
+    ),
+    (
+        "normal-mode/minor-modes/view-mode/m.gif",
+        &["z", "m"],
+        "Align the line to the middle of the screen (horizontally)",
+        &[],
+    ),
+    (
+        "normal-mode/minor-modes/view-mode/j.gif",
+        &["z", "j"],
+        "Scroll the view downwards",
+        &[],
+    ),
+    (
+        "normal-mode/minor-modes/view-mode/k.gif",
+        &["z", "k"],
+        "Scroll the view upwards",
+        &[],
+    ),
+];
+
 pub const COMMANDS: &[(&str, &str)] = &[
     ("Esc", "Clear your current input"),
     ("Backspace", "Pop your current input"),
