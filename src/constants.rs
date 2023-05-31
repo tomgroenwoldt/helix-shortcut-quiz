@@ -593,6 +593,81 @@ pub const NORMAL_MODE_VIEW_MODE: &[(&str, &[&str], &str, &[&str])] = &[
     ),
 ];
 
+pub const NORMAL_MODE_GOTO_MODE: &[(&str, &[&str], &str, &[&str])] = &[
+    (
+        "normal-mode/minor-modes/goto-mode/g.gif",
+        &["g", "g"],
+        "Go to the start of the file",
+        &[],
+    ),
+    (
+        "normal-mode/minor-modes/goto-mode/25-g.gif",
+        &["2", "5", "g", "g"],
+        "Go to line number 25",
+        &[],
+    ),
+    (
+        "normal-mode/minor-modes/goto-mode/e.gif",
+        &["g", "e"],
+        "Go to the end of the file",
+        &[],
+    ),
+    (
+        "normal-mode/minor-modes/goto-mode/h.gif",
+        &["g", "h"],
+        "Go to the start of the line",
+        &[],
+    ),
+    (
+        "normal-mode/minor-modes/goto-mode/l.gif",
+        &["g", "l"],
+        "Go to the end of the line",
+        &[],
+    ),
+    (
+        "normal-mode/minor-modes/goto-mode/s.gif",
+        &["g", "s"],
+        "Go to the first non-whitespace character of the line",
+        &[],
+    ),
+    (
+        "normal-mode/minor-modes/goto-mode/t.gif",
+        &["g", "t"],
+        "Go to the top of the screen",
+        &[],
+    ),
+    (
+        "normal-mode/minor-modes/goto-mode/c.gif",
+        &["g", "c"],
+        "Go to the middle of the screen",
+        &[],
+    ),
+    (
+        "normal-mode/minor-modes/goto-mode/b.gif",
+        &["g", "b"],
+        "Go to the bottom of the screen",
+        &[],
+    ),
+    (
+        "normal-mode/minor-modes/goto-mode/a.gif",
+        &["g", "a"],
+        "Go to the last accessed/alternate file",
+        &[],
+    ),
+    (
+        "normal-mode/minor-modes/goto-mode/m.gif",
+        &["g", "m"],
+        "Go to the last modified/alternate file",
+        &[],
+    ),
+    (
+        "normal-mode/minor-modes/goto-mode/dot.gif",
+        &["g", "."],
+        "Go to last modification in current file",
+        &[],
+    ),
+];
+
 pub const COMMANDS: &[(&str, &str)] = &[
     ("Esc", "Clear your current input"),
     ("Backspace", "Pop your current input"),
