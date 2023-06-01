@@ -1,4 +1,5 @@
-use yew::{html, Component};
+use gloo_storage::{LocalStorage, Storage};
+use yew::{html, Callback, Component};
 
 use crate::constants::COMMANDS;
 
@@ -23,6 +24,22 @@ impl Component for Help {
 
     fn view(&self, _ctx: &yew::Context<Self>) -> yew::Html {
         let commands = &self.commands;
+
+        let playground_new = match LocalStorage::get("playground_new") {
+            Ok(value) => value,
+            Err(_) => {
+                LocalStorage::set::<bool>("playground_new", true).unwrap();
+                true
+            }
+        };
+        let onclick = Callback::from(move |_| {
+            LocalStorage::set::<bool>("playground_new", false).unwrap();
+        });
+        let playground_class = if playground_new {
+            "playground-new"
+        } else {
+            "playground"
+        };
         // Handle the last command separately.
         html! {
             <div class="sidebox">
@@ -43,6 +60,12 @@ impl Component for Help {
                     href="https://github.com/tomgroenwoldt/helix-shortcut-quiz"
                     target="_blank">
                     {"View source"}
+                </a>
+                <a class={playground_class}
+                    href="https://tomgroenwoldt.github.io/helix-editor-playground/"
+                    {onclick}
+                    target="_blank">
+                    {"Check out the playground"}
                 </a>
             </div>
         }

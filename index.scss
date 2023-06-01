@@ -251,7 +251,7 @@ body {
   a {
     font-size: 1.5vh;
     display: flex;
-    margin: 2% auto;
+    margin: 2% auto 0 auto;
     padding: 2%;
     border: 0.01vh solid #7f849c;
     transition: all 0.1s ease-in-out, font-size 0s;
@@ -264,6 +264,15 @@ body {
     cursor: pointer;
     transition: all 0.1s ease-in-out, font-size 0s;
     color: #bac2de;
+  }
+  .playground-new {
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+    border-color: #cba6f7;
+    color: #bac2de;
+  }
+  .playground-new:hover {
+    animation: none;
   }
 }
 
