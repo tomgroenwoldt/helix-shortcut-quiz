@@ -299,10 +299,6 @@ function getImports() {
     imports.wbg.__wbindgen_object_drop_ref = function(arg0) {
         takeObject(arg0);
     };
-    imports.wbg.__wbindgen_object_clone_ref = function(arg0) {
-        const ret = getObject(arg0);
-        return addHeapObject(ret);
-    };
     imports.wbg.__wbindgen_cb_drop = function(arg0) {
         const obj = takeObject(arg0).original;
         if (obj.cnt-- == 1) {
@@ -311,6 +307,10 @@ function getImports() {
         }
         const ret = false;
         return ret;
+    };
+    imports.wbg.__wbindgen_object_clone_ref = function(arg0) {
+        const ret = getObject(arg0);
+        return addHeapObject(ret);
     };
     imports.wbg.__wbg_listenerid_12315eee21527820 = function(arg0, arg1) {
         const ret = getObject(arg1).__yew_listener_id;
@@ -725,16 +725,16 @@ function getImports() {
         const ret = wasm.memory;
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper405 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 197, __wbg_adapter_26);
+    imports.wbg.__wbindgen_closure_wrapper183 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 68, __wbg_adapter_26);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper457 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 210, __wbg_adapter_29);
+    imports.wbg.__wbindgen_closure_wrapper469 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 218, __wbg_adapter_29);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper812 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 339, __wbg_adapter_32);
+    imports.wbg.__wbindgen_closure_wrapper824 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 347, __wbg_adapter_32);
         return addHeapObject(ret);
     };
 
@@ -772,7 +772,7 @@ function initSync(module) {
 
 async function init(input) {
     if (typeof input === 'undefined') {
-        input = new URL('helix-shortcut-quiz-3273b68b0990fa44_bg.wasm', import.meta.url);
+        input = new URL('helix-shortcut-quiz-8cfbdae9b2af12bb_bg.wasm', import.meta.url);
     }
     const imports = getImports();
 
