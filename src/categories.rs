@@ -7,6 +7,7 @@ use crate::{
     constants::{
         NORMAL_MODE_CHANGES, NORMAL_MODE_GOTO_MODE, NORMAL_MODE_MATCH_MODE, NORMAL_MODE_MOVEMENT,
         NORMAL_MODE_SEARCH, NORMAL_MODE_SELECT, NORMAL_MODE_VIEW_MODE, NORMAL_MODE_WINDOW_MODE,
+        PICKER,
     },
     gif::GifWrapper,
 };
@@ -144,7 +145,7 @@ impl Category {
             Category::SpaceMode => true,
             Category::InsertMode => true,
             Category::SelectMode => true,
-            Category::Picker => true,
+            Category::Picker => false,
             Category::Prompt => true,
             Category::Random => false,
         }
@@ -187,7 +188,7 @@ impl Category {
             Category::SpaceMode => vec![],
             Category::InsertMode => vec![],
             Category::SelectMode => vec![],
-            Category::Picker => vec![],
+            Category::Picker => PICKER.iter().map(|&gif| gif.into()).collect::<Vec<_>>(),
             Category::Prompt => vec![],
             Category::Random => Category::iter()
                 .filter(|c| !c.eq(&Category::Random))
@@ -209,7 +210,7 @@ impl Category {
             Category::SpaceMode => todo!(),
             Category::InsertMode => todo!(),
             Category::SelectMode => todo!(),
-            Category::Picker => todo!(),
+            Category::Picker => String::from("picker"),
             Category::Prompt => todo!(),
             Category::Random => String::from("random"),
         }

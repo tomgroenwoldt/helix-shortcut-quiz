@@ -668,6 +668,22 @@ pub const NORMAL_MODE_GOTO_MODE: &[(&str, &[&str], &str, &[&str])] = &[
     ),
 ];
 
+pub const PICKER: &[(&str, &[&str], &str, &[&str])] = &[
+    ("picker/ctrl-p.gif", &["p"], "Previous entry", &["Control"]),
+    ("picker/ctrl-n.gif", &["n"], "Next entry", &["Control"]),
+    ("picker/ctrl-u.gif", &["u"], "Page up", &["Control"]),
+    ("picker/ctrl-d.gif", &["d"], "Page down", &["Control"]),
+    (
+        "picker/ctrl-s.gif",
+        &["s"],
+        "Open horizontally",
+        &["Control"],
+    ),
+    ("picker/ctrl-v.gif", &["v"], "Open vertically", &["Control"]),
+    ("picker/ctrl-t.gif", &["t"], "Toggle preview", &["Control"]),
+    ("picker/ctrl-c.gif", &["c"], "Close picker", &["Control"]),
+];
+
 pub const COMMANDS: &[(&str, &str)] = &[
     ("Esc", "Clear your current input"),
     ("Backspace", "Pop your current input"),
