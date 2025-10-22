@@ -1,0 +1,345 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: #1d1c2d;
+  font-family: "Hack Nerd Font", monospace;
+  color: rgb(205, 214, 244);
+}
+
+.layout {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+}
+.main .main-top-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+  width: 100%;
+  height: 25%;
+}
+.main .main-top-box .title {
+  height: 20%;
+  margin: auto;
+  font-size: 5vh;
+  display: flex;
+  flex-direction: column;
+}
+.main .main-top-box .description {
+  margin: auto;
+  padding: 2%;
+  text-align: center;
+  border: 0.01vh solid #7f849c;
+  font-size: 2vh;
+}
+.main .gif {
+  width: 100%;
+  height: 50%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.main .gif img {
+  align: center;
+  border: 0.01vh solid #7f849c;
+  padding: 2%;
+  max-width: calc(100% - 20px);
+  max-height: calc(100% - 20px);
+}
+.main .main-bottom-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  width: 100%;
+  height: 25%;
+}
+.main .main-bottom-box .shortcut {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.main .main-bottom-box .shortcut .input {
+  display: flex;
+  justify-content: center;
+  height: 60%;
+  width: 100%;
+}
+.main .main-bottom-box .shortcut .input .key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-text: center;
+  height: 50%;
+  aspect-ratio: 1/1;
+  font-size: 2vh;
+  border: 0.01vh solid #cdd6f4;
+  transition: all 0.2s ease-in-out, font-size 0s;
+  background-color: rgba(205, 214, 244, 0.1);
+}
+.main .main-bottom-box .shortcut .input .long {
+  aspect-ratio: 2/1;
+}
+.main .main-bottom-box .shortcut .input .correct-key {
+  transform: scale(0.95);
+  background-color: rgba(166, 227, 161, 0.1);
+  border-color: rgb(166, 227, 161);
+}
+.main .main-bottom-box .shortcut .input .wrong-key {
+  background-color: rgba(243, 139, 168, 0.1);
+  border-color: rgb(243, 139, 168);
+  animation: shake 0.2s;
+}
+.main .main-bottom-box .shortcut .input .solution-key {
+  background-color: rgba(116, 199, 236, 0.1);
+  border-color: rgb(137, 180, 250);
+  color: #cdd6f4;
+}
+.main .main-bottom-box .shortcut .input .plus {
+  font-size: 5vh;
+  margin: 0 2%;
+}
+.main .main-bottom-box .shortcut .input .prefix {
+  border: 0.01vh solid #7f849c;
+  color: #7f849c;
+  background-color: rgba(127, 132, 156, 0.1);
+}
+.main .main-bottom-box .shortcut .solution {
+  height: 5%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-text: center;
+  font-size: 1.5vh;
+}
+.main .main-bottom-box .shortcut .solution div {
+  border: 0.01vh solid #6c7086;
+  user-select: none;
+  padding: 1%;
+  transition: all 0.1s ease-in-out, font-size 0s;
+  background-color: rgba(69, 71, 90, 0.3);
+  color: rgb(127, 132, 156);
+}
+.main .main-bottom-box .shortcut .solution .active {
+  background-color: rgba(116, 199, 236, 0.1);
+  border-color: rgb(137, 180, 250);
+  transition: all 0.1s ease-in-out;
+  transform: scale(1.2);
+  color: #cdd6f4;
+}
+.main .main-bottom-box .shortcut .solution div:hover {
+  background-color: rgba(116, 199, 236, 0.15);
+  border-color: rgb(137, 180, 250);
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  color: #bac2de;
+}
+.main .main-bottom-box .progress {
+  height: 30%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-text: center;
+}
+.main .main-bottom-box .progress div {
+  margin: 0 2%;
+  height: 30%;
+  aspect-ratio: 1/1;
+  border: 0.01vh solid #7f849c;
+  transition: all 0.1s ease-in-out;
+  background-color: rgba(205, 214, 244, 0.1);
+}
+.main .main-bottom-box .progress .played {
+  transform: scale(0.95);
+  background-color: rgba(166, 227, 161, 0.1);
+  border-color: rgb(166, 227, 161);
+}
+.main .main-bottom-box .progress .active {
+  transform: scale(1.1);
+  border-color: rgb(205, 214, 244);
+  background-color: rgba(205, 214, 244, 0.3);
+}
+
+.sidebox {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+.sidebox .categories {
+  margin: 0 10%;
+  user-select: none;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+}
+.sidebox .categories .title {
+  text-decoration: underline;
+  padding-bottom: 1%;
+  font-size: 1.5vh;
+}
+.sidebox .categories div {
+  font-family: "Hack Nerd Font", monospace;
+  font-size: 1.5vh;
+  border: 0.01vh solid #7f849c;
+  color: rgb(205, 214, 244);
+  background: none;
+  margin: 0;
+  padding: 2%;
+  transition: background-color 0.1s ease-in-out;
+}
+.sidebox .categories .inactive:hover {
+  background-color: rgba(166, 227, 161, 0.1);
+  color: #bac2de;
+}
+.sidebox .categories .active {
+  background-color: rgba(166, 227, 161, 0.2);
+}
+.sidebox .categories .inactive {
+  color: rgb(108, 112, 134);
+  background-color: rgb(30, 30, 46);
+}
+.sidebox .categories .disabled {
+  disabled: true;
+  color: rgb(49, 50, 68);
+  background-color: rgb(17, 17, 27);
+}
+.sidebox .help {
+  margin: 0 10%;
+  border: 0.01vh solid #7f849c;
+  font-size: 1.5vh;
+  padding: 2%;
+}
+.sidebox .help .command {
+  text-decoration: underline;
+  text-decoration-color: white;
+}
+.sidebox .help .highlight {
+  color: rgb(166, 227, 161);
+}
+.sidebox .help .hide {
+  color: rgb(110, 115, 141);
+}
+.sidebox a {
+  font-size: 1.5vh;
+  display: flex;
+  margin: 2% auto 0 auto;
+  padding: 2%;
+  border: 0.01vh solid #7f849c;
+  transition: all 0.1s ease-in-out, font-size 0s;
+  color: inherit;
+  text-decoration: none;
+}
+.sidebox a:hover {
+  background-color: rgba(116, 199, 236, 0.15);
+  border-color: rgb(137, 180, 250);
+  cursor: pointer;
+  transition: all 0.1s ease-in-out, font-size 0s;
+  color: #bac2de;
+}
+.sidebox .playground-new {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+  border-color: #cba6f7;
+  color: #bac2de;
+}
+.sidebox .playground-new:hover {
+  animation: none;
+}
+
+.reset {
+  height: 70%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-text: center;
+  font-size: 2vh;
+}
+.reset div {
+  border: 0.01vh solid #7f849c;
+  padding: 2%;
+  user-select: none;
+}
+.reset div:hover {
+  animation: shake 0.2s;
+  animation-iteration-count: infinite;
+  background-color: rgba(243, 139, 168, 0.1);
+  border-color: rgb(243, 139, 168);
+  cursor: pointer;
+}
+
+.disabled-reset {
+  height: 70%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-text: center;
+  font-size: 2vh;
+}
+.disabled-reset div {
+  border: 0.01vh solid #7f849c;
+  padding: 2%;
+  user-select: none;
+  color: rgb(49, 50, 68);
+  background-color: rgb(17, 17, 27);
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
