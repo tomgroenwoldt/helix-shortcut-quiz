@@ -26,7 +26,7 @@ jobs:
 
       - name: Build release
         run: |
-          trunk build --release --public-url helix-shortcut-quiz
+          trunk build --release --public-url /helix-shortcut-quiz
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
