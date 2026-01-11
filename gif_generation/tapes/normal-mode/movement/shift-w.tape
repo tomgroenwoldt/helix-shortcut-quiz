@@ -1,4 +1,4 @@
-Output "../gifs/normal-mode/movement/B.gif"
+Output "../gifs/normal-mode/movement/shift-w.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20
@@ -8,19 +8,19 @@ Set Height 600
 Hide
 Type "helix demo.rs"
 Enter
-Type "12G"
+Type "14Gw"
 Sleep 100ms
 Show
 Sleep 1000ms
-Type "B"
+Type "W"
 Sleep 1000ms
-Type "B"
+Type "W"
 Sleep 1000ms
-Type "B"
+Type "W"
 Sleep 1000ms
-Type "B"
+Type "W"
 Sleep 1000ms
-Type "B"
+Type "W"
 Sleep 1000ms
-Type "B"
+Type "W"
 Sleep 1000ms

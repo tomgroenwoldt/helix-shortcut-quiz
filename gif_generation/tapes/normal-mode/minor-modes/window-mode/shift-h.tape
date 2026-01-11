@@ -1,4 +1,4 @@
-Output "../gifs/normal-mode/minor-modes/window-mode/L.gif"
+Output "../gifs/normal-mode/minor-modes/window-mode/shift-h.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 12
@@ -21,15 +21,13 @@ Type ":hs third_window.rs"
 Enter
 Type "ge"
 Ctrl+W
-Type "h"
-Ctrl+W
-Type "k"
+Type "l"
 Sleep 100ms
 Show
 Sleep 1000ms
 Hide
 Ctrl+W
 Sleep 100ms
-Type "L"
+Type "H"
 Show
 Sleep 2000ms
