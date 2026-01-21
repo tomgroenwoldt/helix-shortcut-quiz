@@ -1,4 +1,4 @@
-Output "../gifs/normal-mode/movement/F-l.gif"
+Output "../gifs/normal-mode/movement/shift-t-l.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20
@@ -13,32 +13,32 @@ Sleep 100ms
 Show
 Sleep 1000ms
 Hide
-Type "F"
+Type "T"
 Show
 Type "l"
 Sleep 1000ms
 Hide
-Type "F"
+Type "T"
 Show
 Type "l"
 Sleep 1000ms
 Hide
-Type "F"
+Type "T"
 Show
 Type "l"
 Sleep 1000ms
 Hide
-Type "F"
+Type "T"
 Show
 Type "l"
 Sleep 1000ms
 Hide
-Type "F"
+Type "T"
 Show
 Type "l"
 Sleep 1000ms
 Hide
-Type "F"
+Type "T"
 Show
 Type "l"
 Sleep 1000ms

@@ -1,4 +1,4 @@
-Output "../gifs/normal-mode/minor-modes/window-mode/F.gif"
+Output "../gifs/normal-mode/minor-modes/window-mode/shift-f.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 12

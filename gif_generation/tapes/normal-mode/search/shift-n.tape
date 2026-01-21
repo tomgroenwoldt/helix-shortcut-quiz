@@ -1,4 +1,4 @@
-Output "../gifs/normal-mode/movement/13-G.gif"
+Output "../gifs/normal-mode/search/shift-n.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20
@@ -8,11 +8,12 @@ Set Height 600
 Hide
 Type "helix demo.rs"
 Enter
-Type "gg"
+Type "/println"
+Enter
 Sleep 100ms
 Show
 Sleep 1000ms
-Hide
-Type "13G"
-Show
+Type "N"
+Sleep 1000ms
+Type "N"
 Sleep 1000ms

@@ -1,4 +1,4 @@
-Output "../gifs/normal-mode/select/S.gif"
+Output "../gifs/normal-mode/select/shift-j.gif"
 
 Set Theme "Catppuccin Mocha"
 Set FontSize 20
@@ -8,10 +8,11 @@ Set Height 600
 Hide
 Type "helix demo.rs"
 Enter
-Type "%"
+Type "10G"
+Sleep 50ms
+Type "xxx"
 Sleep 100ms
 Show
 Sleep 1000ms
-Type "Sguess"
-Enter
+Type "J"
 Sleep 2000ms
